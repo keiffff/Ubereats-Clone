@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { Test } from "components/Test";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Test } from 'components/Test';
 
 export const App = () => {
   return (
@@ -13,8 +13,8 @@ export const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

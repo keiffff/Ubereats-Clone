@@ -23,7 +23,7 @@
     "prettier": "^2.0.5"
   },
   "lint-staged": {
-    "packages/src/**/*.{ts,tsx}": [
+    "packages/**/src/**/*.{ts,tsx}": [
       "eslint --fix"
     ]
   },
