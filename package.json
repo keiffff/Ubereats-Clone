@@ -1,0 +1,19 @@
+{
+  "name": "ubereats-clone",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "mobile": "yarn workspace mobile",
+    "hasura": "yarn workspace hasura",
+    "services": "yarn workspace services"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**"
+    ]
+  }
+}
