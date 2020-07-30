@@ -11,8 +11,8 @@ export const App = () => {
     {
       redirectUri,
       clientId: 'tUxfGGLlawWYnE8xpuuIONHG8DxrmI21',
-      responseType: 'id_token',
-      scopes: ['openid', 'profile'],
+      responseType: 'token',
+      scopes: ['openid', 'profile', 'email'],
       extraParams: {
         audience: 'ubereats-clone-api',
         nonce: 'nonce',
@@ -29,7 +29,7 @@ export const App = () => {
       return;
     }
     if (result.type === 'success') {
-      setToken(result.params.id_token);
+      setToken(result.params.access_token);
     }
   }, [result]);
 
