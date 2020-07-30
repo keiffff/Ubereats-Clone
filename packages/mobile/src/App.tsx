@@ -1,11 +1,45 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Test } from 'components/Test';
+import React, { useEffect, useState } from 'react';
+import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
+import { Alert, StyleSheet, View, Text, Button, Platform } from 'react-native';
+
+const useProxy = Platform.select({ web: false, default: true });
+const redirectUri = makeRedirectUri({ useProxy });
 
 export const App = () => {
+  const [token, setToken] = useState('');
+  const [request, result, promptAsync] = useAuthRequest(
+    {
+      redirectUri,
+      clientId: 'tUxfGGLlawWYnE8xpuuIONHG8DxrmI21',
+      responseType: 'id_token',
+      scopes: ['openid', 'profile'],
+      extraParams: {
+        audience: 'ubereats-clone-api',
+        nonce: 'nonce',
+      },
+    },
+    { authorizationEndpoint: 'https://ubereats-clone.us.auth0.com/authorize' },
+  );
+
+  useEffect(() => {
+    if (!result) return;
+    if (result.type === 'error') {
+      Alert.alert('Authentication error', result.params.error_description || 'something went wrong');
+
+      return;
+    }
+    if (result.type === 'success') {
+      setToken(result.params.id_token);
+    }
+  }, [result]);
+
   return (
     <View style={styles.container}>
-      <Test />
+      {token ? (
+        <Text>You are logged in</Text>
+      ) : (
+        <Button disabled={!request} title="Log in with Auth0" onPress={() => promptAsync({ useProxy })} />
+      )}
     </View>
   );
 };
