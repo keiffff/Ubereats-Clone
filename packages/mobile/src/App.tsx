@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
 import { Alert, StyleSheet, View, Text, Button, Platform } from 'react-native';
+import { environment } from 'constants/environment';
 
 const useProxy = Platform.select({ web: false, default: true });
 const redirectUri = makeRedirectUri({ useProxy });
@@ -10,15 +11,15 @@ export const App = () => {
   const [request, result, promptAsync] = useAuthRequest(
     {
       redirectUri,
-      clientId: 'tUxfGGLlawWYnE8xpuuIONHG8DxrmI21',
+      clientId: environment.authClientId,
       responseType: 'token',
       scopes: ['openid', 'profile', 'email'],
       extraParams: {
-        audience: 'ubereats-clone-api',
+        audience: environment.authAudience,
         nonce: 'nonce',
       },
     },
-    { authorizationEndpoint: 'https://ubereats-clone.us.auth0.com/authorize' },
+    { authorizationEndpoint: `https://${environment.authDomain}/authorize` },
   );
 
   useEffect(() => {
