@@ -9,7 +9,7 @@ export const App = () => {
       clientId={environment.authClientId}
       audience={environment.authAudience}
       domain={environment.authDomain}
-      scopes={['openid', 'profile', 'email']}
+      scope="openid profile email"
     >
       <Test />
     </AuthProvider>
