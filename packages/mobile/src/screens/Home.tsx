@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useCurrentUser } from 'providers/CurrentUser';
 
-export const Test = () => {
+export const Home = () => {
   const { firstName } = useCurrentUser();
 
   return (
