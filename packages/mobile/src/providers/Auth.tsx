@@ -1,8 +1,9 @@
-import React, { useState, useCallback, ReactNode, createContext, useContext, useEffect } from 'react';
+import React, { useState, useCallback, ReactNode, createContext, useEffect } from 'react';
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
 import { setItemAsync, getItemAsync } from 'expo-secure-store';
 import { Alert, Platform } from 'react-native';
 import jwtDecoder from 'jwt-decode';
+import { useContext } from 'hooks/useContext';
 import { secureStoreKey } from 'constants/secureStore';
 
 type AuthContext = {
@@ -25,12 +26,7 @@ type Props = {
 const AuthContext = createContext<AuthContext | null>(null);
 
 export function useAuth() {
-  const value = useContext(AuthContext);
-  if (!value) {
-    throw new Error('You must provide a value to the context');
-  }
-
-  return value;
+  return useContext(AuthContext);
 }
 
 const useProxy = Platform.select({ web: false, default: true });

@@ -60,6 +60,7 @@ module.exports = {
     'react/display-name': 'off',
     'react/button-has-type': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/prop-types': 'off',
     // react-hooks
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',

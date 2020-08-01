@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from 'providers/Auth';
 import { ApolloProvider } from 'providers/Apollo';
+import { CurrentUserProvider } from 'providers/CurrentUser';
 import { Test } from 'components/Test';
 
 export const Private = () => {
@@ -8,7 +9,9 @@ export const Private = () => {
 
   return (
     <ApolloProvider accessToken={token}>
-      <Test />
+      <CurrentUserProvider>
+        <Test />
+      </CurrentUserProvider>
     </ApolloProvider>
   );
 };
