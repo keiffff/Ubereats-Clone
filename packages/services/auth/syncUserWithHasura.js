@@ -1,11 +1,12 @@
 function syncUserWithHasura(user, context, callback) {
   const upsertUserQuery = `
-    mutation($firstName: String!, $lastName: String! ,$email: String!){
+    mutation($id: String!, $firstName: String!, $lastName: String! ,$email: String!){
       insert_users(objects: [{
+        id: $id,
         first_name: $firstName,
         last_name: $lastName,
         email: $email,
-      }], on_conflict: { constraint: users_email_key, update_columns: [] }) {
+      }], on_conflict: { constraint: users_pkey, update_columns: [] }) {
         affected_rows
       }
     }`;
@@ -20,6 +21,7 @@ function syncUserWithHasura(user, context, callback) {
       body: JSON.stringify({
         query: upsertUserQuery,
         variables: {
+          id: user.user_id,
           firstName: user.given_name,
           lastName: user.family_name,
           email: user.email,

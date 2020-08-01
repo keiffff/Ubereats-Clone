@@ -3,7 +3,7 @@ function setTokenClaimsForHasura(user, context, callback) {
   context.accessToken[namespace] = {
     'x-hasura-default-role': 'user',
     'x-hasura-allowed-roles': ['user'],
-    'x-hasura-user-email': user.email,
+    'x-hasura-user-id': user.user_id,
   };
   callback(null, user, context);
 }
