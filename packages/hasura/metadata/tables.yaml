@@ -1,114 +1,24 @@
 - table:
     schema: public
     name: food_categories
-  array_relationships:
-  - name: foods
-    using:
-      foreign_key_constraint_on:
-        column: category_uuid
-        table:
-          schema: public
-          name: foods
 - table:
     schema: public
     name: food_details
-  object_relationships:
-  - name: food
-    using:
-      foreign_key_constraint_on: food_uuid
 - table:
     schema: public
     name: foods
-  object_relationships:
-  - name: food_category
-    using:
-      foreign_key_constraint_on: category_uuid
-  - name: restaurant
-    using:
-      foreign_key_constraint_on: restaurant_uuid
-  array_relationships:
-  - name: food_details
-    using:
-      foreign_key_constraint_on:
-        column: food_uuid
-        table:
-          schema: public
-          name: food_details
-  - name: inventories
-    using:
-      foreign_key_constraint_on:
-        column: food_uuid
-        table:
-          schema: public
-          name: inventories
-  - name: order_foods
-    using:
-      foreign_key_constraint_on:
-        column: food_uuid
-        table:
-          schema: public
-          name: order_foods
 - table:
     schema: public
     name: inventories
-  object_relationships:
-  - name: food
-    using:
-      foreign_key_constraint_on: food_uuid
-  - name: restaurant
-    using:
-      foreign_key_constraint_on: restaurant_uuid
 - table:
     schema: public
     name: order_foods
-  object_relationships:
-  - name: food
-    using:
-      foreign_key_constraint_on: food_uuid
-  - name: order
-    using:
-      foreign_key_constraint_on: order_uuid
 - table:
     schema: public
     name: orders
-  object_relationships:
-  - name: user
-    using:
-      foreign_key_constraint_on: user_uuid
-  array_relationships:
-  - name: order_foods
-    using:
-      foreign_key_constraint_on:
-        column: order_uuid
-        table:
-          schema: public
-          name: order_foods
 - table:
     schema: public
     name: restaurants
-  array_relationships:
-  - name: foods
-    using:
-      foreign_key_constraint_on:
-        column: restaurant_uuid
-        table:
-          schema: public
-          name: foods
-  - name: inventories
-    using:
-      foreign_key_constraint_on:
-        column: restaurant_uuid
-        table:
-          schema: public
-          name: inventories
 - table:
     schema: public
     name: users
-  array_relationships:
-  - name: orders
-    using:
-      foreign_key_constraint_on:
-        column: user_uuid
-        table:
-          schema: public
-          name: orders
