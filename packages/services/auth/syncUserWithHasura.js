@@ -5,7 +5,7 @@ function syncUserWithHasura(user, context, callback) {
         first_name: $firstName,
         last_name: $lastName,
         email: $email,
-      }], on_conflict: { constraint: users_pkey, update_columns: [] }) {
+      }], on_conflict: { constraint: users_email_key, update_columns: [] }) {
         affected_rows
       }
     }`;
