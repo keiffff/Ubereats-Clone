@@ -56,6 +56,7 @@ export const AuthProvider = ({ clientId, audience, scopes, domain, children }: P
   }, [promptAsync]);
 
   useEffect(() => {
+    let cleanedUp = false;
     if (!result) return;
     if (result.type === 'error') {
       Alert.alert('Authentication error', result.params.error_description || 'something went wrong');
@@ -65,7 +66,11 @@ export const AuthProvider = ({ clientId, audience, scopes, domain, children }: P
       const decoded: any = jwtDecoder(result.params.access_token);
       setCurrentUserEmail(decoded['https://hasura.io/jwt/claims']['x-hasura-user-email']);
     }
-    setLoading(false);
+    !cleanedUp && setLoading(false);
+
+    return () => {
+      cleanedUp = true;
+    };
   }, [result]);
 
   return (
