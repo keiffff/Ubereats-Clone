@@ -1,10 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { useAuth } from 'providers/Auth';
 
 export const Test = () => {
+  const { authenticated, handleLogin, currentUserEmail } = useAuth();
+
   return (
     <View style={styles.container}>
-      <Text>Test</Text>
+      {authenticated ? (
+        <Text>You are logged in as {currentUserEmail}</Text>
+      ) : (
+        <Button title="Log in with Auth0" onPress={handleLogin} />
+      )}
     </View>
   );
 };
