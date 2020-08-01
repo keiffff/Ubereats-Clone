@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
 import { Alert, StyleSheet, View, Text, Button, Platform } from 'react-native';
 import { environment } from 'constants/environment';
+import jwtDecoder from 'jwt-decode';
 
 const useProxy = Platform.select({ web: false, default: true });
 const redirectUri = makeRedirectUri({ useProxy });
@@ -31,6 +32,8 @@ export const App = () => {
     }
     if (result.type === 'success') {
       setToken(result.params.access_token);
+      const decoded: any = jwtDecoder(result.params.access_token);
+      console.log(decoded['https://hasura.io/jwt/claims']['x-hasura-user-email']);
     }
   }, [result]);
 
