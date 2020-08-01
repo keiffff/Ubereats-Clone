@@ -1,17 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { useQuery } from '@apollo/client';
+import { GetUserByIdDocument } from 'types/graphql';
 import { useAuth } from 'providers/Auth';
+import { LoadingView } from './LoadingView';
 
 export const Test = () => {
-  const { authenticated, handleLogin, currentUserId } = useAuth();
+  const { currentUserId } = useAuth();
+  const { data, loading } = useQuery(GetUserByIdDocument, { variables: { id: currentUserId } });
 
   return (
     <View style={styles.container}>
-      {authenticated ? (
-        <Text>You are logged in as {currentUserId}</Text>
-      ) : (
-        <Button title="Log in with Auth0" onPress={handleLogin} />
-      )}
+      {loading ? <LoadingView /> : <Text>{`You are now logged in as ${data?.users_by_pk?.first_name}`}</Text>}
     </View>
   );
 };

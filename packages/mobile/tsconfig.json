@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "strict": true,
     "baseUrl": "src",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["@graphql-typed-document-node/apollo-client-3"]
   }
 }

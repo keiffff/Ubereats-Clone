@@ -6,6 +6,7 @@ import jwtDecoder from 'jwt-decode';
 import { secureStoreKey } from 'constants/secureStore';
 
 type AuthContext = {
+  token: string;
   authenticated: boolean;
   currentUserId: string;
   loading: boolean;
@@ -43,6 +44,7 @@ const decodeAuthToken = (token: string) => {
 
 export const AuthProvider = ({ clientId, audience, scope, domain, children }: Props) => {
   const [authenticated, setAuthenticated] = useState(false);
+  const [token, setToken] = useState('');
   const [currentUserId, setCurrentUserId] = useState('');
   const [loading, setLoading] = useState(false);
   const [, , promptAsync] = useAuthRequest(
@@ -67,6 +69,7 @@ export const AuthProvider = ({ clientId, audience, scope, domain, children }: Pr
       case 'success': {
         const { access_token } = result.params;
         setAuthenticated(true);
+        setToken(access_token);
         const { userId } = decodeAuthToken(access_token);
         setCurrentUserId(userId);
         setItemAsync(secureStoreKey.accessToken, access_token);
@@ -90,6 +93,7 @@ export const AuthProvider = ({ clientId, audience, scope, domain, children }: Pr
       const { userId, exp } = decodeAuthToken(storedAccessToken);
       if (exp > Math.floor(new Date().getTime() / 1000)) {
         setAuthenticated(true);
+        setToken(storedAccessToken);
         setCurrentUserId(userId);
       }
     }
@@ -101,7 +105,7 @@ export const AuthProvider = ({ clientId, audience, scope, domain, children }: Pr
   }, [initialize]);
 
   return (
-    <AuthContext.Provider value={{ authenticated, currentUserId, loading, handleLogin, handleLogout: () => {} }}>
+    <AuthContext.Provider value={{ authenticated, currentUserId, loading, token, handleLogin, handleLogout: () => {} }}>
       {children}
     </AuthContext.Provider>
   );
