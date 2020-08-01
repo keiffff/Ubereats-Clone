@@ -5,7 +5,7 @@ import jwtDecoder from 'jwt-decode';
 
 type AuthContext = {
   authenticated: boolean;
-  currentUserEmail: string;
+  currentUserId: string;
   loading: boolean;
   handleLogin: () => void;
   handleLogout: () => void;
@@ -35,7 +35,7 @@ const redirectUri = makeRedirectUri({ useProxy });
 
 export const AuthProvider = ({ clientId, audience, scopes, domain, children }: Props) => {
   const [token, setToken] = useState('');
-  const [currentUserEmail, setCurrentUserEmail] = useState('');
+  const [currentUserId, setCurrentUserId] = useState('');
   const [loading, setLoading] = useState(false);
   const [, result, promptAsync] = useAuthRequest(
     {
@@ -64,7 +64,7 @@ export const AuthProvider = ({ clientId, audience, scopes, domain, children }: P
     if (result.type === 'success') {
       setToken(result.params.access_token);
       const decoded: any = jwtDecoder(result.params.access_token);
-      setCurrentUserEmail(decoded['https://hasura.io/jwt/claims']['x-hasura-user-email']);
+      setCurrentUserId(decoded['https://hasura.io/jwt/claims']['x-hasura-user-id']);
     }
     !cleanedUp && setLoading(false);
 
@@ -75,7 +75,7 @@ export const AuthProvider = ({ clientId, audience, scopes, domain, children }: P
 
   return (
     <AuthContext.Provider
-      value={{ authenticated: !!token, currentUserEmail, loading, handleLogin, handleLogout: () => {} }}
+      value={{ authenticated: !!token, currentUserId, loading, handleLogin, handleLogout: () => {} }}
     >
       {children}
     </AuthContext.Provider>

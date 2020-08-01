@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { useAuth } from 'providers/Auth';
 
 export const Test = () => {
-  const { authenticated, handleLogin, currentUserEmail } = useAuth();
+  const { authenticated, handleLogin, currentUserId } = useAuth();
 
   return (
     <View style={styles.container}>
       {authenticated ? (
-        <Text>You are logged in as {currentUserEmail}</Text>
+        <Text>You are logged in as {currentUserId}</Text>
       ) : (
         <Button title="Log in with Auth0" onPress={handleLogin} />
       )}
