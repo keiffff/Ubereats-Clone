@@ -1,14 +1,24 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { useCurrentUser } from 'providers/CurrentUser';
+import { useQuery } from '@apollo/client';
+import { PopularFoodCategoriesList } from 'components/PopularFoodCategoriesList';
+import { GetFoodCategoriesDocument } from 'types/graphql';
 import { styles } from './styles';
+import { LoadingView } from 'components/LoadingView';
 
 export const Home = () => {
-  const { firstName } = useCurrentUser();
+  const { data, loading } = useQuery(GetFoodCategoriesDocument);
 
-  return (
-    <View style={styles.container}>
-      <Text>{`You are now logged in as ${firstName}`}</Text>
+  return loading || !data ? (
+    <LoadingView />
+  ) : (
+    <View style={styles.base}>
+      <View style={styles.popularCategoriesListContainer}>
+        <View style={styles.contentTitleWrapper}>
+          <Text style={styles.contentTitle}>Popular Categories</Text>
+        </View>
+        <PopularFoodCategoriesList categories={data.food_categories} />
+      </View>
     </View>
   );
 };

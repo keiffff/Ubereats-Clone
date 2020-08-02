@@ -1,10 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {
+  base: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#ffffff',
+    paddingVertical: 24,
+  },
+  popularCategoriesListContainer: {
+    paddingHorizontal: 8,
+  },
+  contentTitleWrapper: {
+    marginBottom: 12,
+  },
+  contentTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });

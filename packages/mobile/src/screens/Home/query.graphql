@@ -1,0 +1,7 @@
+query getFoodCategories {
+  food_categories {
+    uuid
+    name
+    photo
+  }
+}

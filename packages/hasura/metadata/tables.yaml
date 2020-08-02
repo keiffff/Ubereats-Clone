@@ -9,6 +9,14 @@
         table:
           schema: public
           name: foods
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - uuid
+      - name
+      - photo
+      filter: {}
 - table:
     schema: public
     name: food_details
@@ -110,6 +118,4 @@
       - email
       - first_name
       - last_name
-      filter:
-        id:
-          _eq: X-Hasura-User-Id
+      filter: {}
