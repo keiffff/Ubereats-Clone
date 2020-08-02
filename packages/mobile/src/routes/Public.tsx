@@ -1,23 +1,10 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Landing } from 'screens/Landing';
 
 type Props = {
   onPressLogin: () => void;
 };
 
 export const Public = ({ onPressLogin }: Props) => {
-  return (
-    <View style={styles.container}>
-      <Button title="Click to Login" onPress={onPressLogin} />
-    </View>
-  );
+  return <Landing onPressLogin={onPressLogin} />;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
