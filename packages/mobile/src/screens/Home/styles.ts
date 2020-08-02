@@ -6,10 +6,14 @@ export const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     paddingVertical: 24,
   },
+  popularCategoriesContainer: {
+    marginBottom: 24,
+  },
   popularCategoriesListContainer: {
-    paddingHorizontal: 8,
+    marginHorizontal: 8,
   },
   contentTitleWrapper: {
+    marginLeft: 8,
     marginBottom: 12,
   },
   contentTitle: {
