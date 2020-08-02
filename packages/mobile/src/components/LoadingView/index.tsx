@@ -1,5 +1,6 @@
 import React, { ComponentProps } from 'react';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
+import { styles } from './styles';
 
 type Props = Partial<{
   size: ComponentProps<typeof ActivityIndicator>['size'];
@@ -10,11 +11,3 @@ export const LoadingView = ({ size = 'small' }: Props) => (
     <ActivityIndicator size={size} />
   </View>
 );
-
-const styles = StyleSheet.create({
-  base: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
