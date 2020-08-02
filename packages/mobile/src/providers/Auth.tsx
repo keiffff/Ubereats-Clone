@@ -1,6 +1,6 @@
 import React, { useState, useCallback, ReactNode, createContext, useEffect } from 'react';
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
-import { setItemAsync, getItemAsync } from 'expo-secure-store';
+import { setItemAsync, getItemAsync, deleteItemAsync } from 'expo-secure-store';
 import { Alert, Platform } from 'react-native';
 import jwtDecoder from 'jwt-decode';
 import { useContext } from 'hooks/useContext';
@@ -82,6 +82,13 @@ export const AuthProvider = ({ clientId, audience, scope, domain, children }: Pr
     setLoading(false);
   }, [promptAsync]);
 
+  const handleLogout = useCallback(() => {
+    setAuthenticated(false);
+    setCurrentUserId('');
+    setToken('');
+    deleteItemAsync(secureStoreKey.accessToken);
+  }, []);
+
   const initialize = useCallback(async () => {
     setLoading(true);
     const storedAccessToken = await getItemAsync(secureStoreKey.accessToken);
@@ -101,7 +108,7 @@ export const AuthProvider = ({ clientId, audience, scope, domain, children }: Pr
   }, [initialize]);
 
   return (
-    <AuthContext.Provider value={{ authenticated, currentUserId, loading, token, handleLogin, handleLogout: () => {} }}>
+    <AuthContext.Provider value={{ authenticated, currentUserId, loading, token, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
