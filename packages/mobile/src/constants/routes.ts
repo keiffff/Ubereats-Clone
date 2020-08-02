@@ -1,3 +1,3 @@
 export const routes = {
-  home: 'Home',
+  home: 'HOME',
 } as const;
