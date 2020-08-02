@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 
 type Props = {
-  onMounted: () => void;
+  onPressLogin: () => void;
 };
 
-export const Public = ({ onMounted }: Props) => {
+export const Public = ({ onPressLogin }: Props) => {
   return (
     <View style={styles.container}>
-      <Button title="Click to Login" onPress={onMounted} />
+      <Button title="Click to Login" onPress={onPressLogin} />
     </View>
   );
 };
