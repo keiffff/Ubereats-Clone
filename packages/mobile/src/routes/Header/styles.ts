@@ -1,13 +1,20 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  headerButtonContainer: {
+  hamburgerButtonContainer: {
     padding: 10,
   },
-  headerButtonImage: {
-    justifyContent: 'center',
+  hamburgerButtonImage: {
     width: 25,
     height: 25,
-    margin: 6,
+    marginLeft: 6,
+  },
+  shoppingCartContainer: {
+    padding: 10,
+  },
+  shoppingCartImage: {
+    width: 25,
+    height: 25,
+    marginRight: 6,
   },
 });

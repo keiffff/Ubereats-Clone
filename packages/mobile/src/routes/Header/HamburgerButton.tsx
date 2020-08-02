@@ -8,8 +8,8 @@ export const HamburgerButton = () => {
   const handlePress = useCallback(() => dispatch(DrawerActions.openDrawer()), [dispatch]);
 
   return (
-    <TouchableOpacity style={styles.headerButtonContainer} onPress={handlePress}>
-      <Image source={require('assets/hamburger-menu-icon.png')} style={styles.headerButtonImage} />
+    <TouchableOpacity style={styles.hamburgerButtonContainer} onPress={handlePress}>
+      <Image source={require('assets/hamburger-menu-icon.png')} style={styles.hamburgerButtonImage} />
     </TouchableOpacity>
   );
 };

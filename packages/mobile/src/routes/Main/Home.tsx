@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HamburgerButton } from '../Header/HamburgerButton';
+import { ShoppingCartButton } from '../Header/ShoppingCartButton';
 import { Home } from 'screens/Home';
 
 const Stack = createStackNavigator();
@@ -13,6 +14,7 @@ export const HomeNavigator = () => (
       options={{
         headerLeft: () => <HamburgerButton />,
         headerTitleAlign: 'center',
+        headerRight: () => <ShoppingCartButton />,
       }}
     />
   </Stack.Navigator>
