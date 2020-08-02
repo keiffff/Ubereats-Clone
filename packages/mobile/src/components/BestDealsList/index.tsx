@@ -11,8 +11,7 @@ type ItemProps = {
   photo: string;
   width: number;
   totalItemCount: number;
-  inView: boolean;
-  lastItem: boolean;
+  currentIndex: number;
 };
 
 export const BestDealsList = ({ categories }: Props) => {
@@ -29,14 +28,8 @@ export const BestDealsList = ({ categories }: Props) => {
   return (
     <FlatList
       data={categories}
-      renderItem={({ item, index }) => (
-        <Item
-          {...item}
-          width={width}
-          inView={index === currentIndex}
-          totalItemCount={categories.length}
-          lastItem={categories.length === index + 1}
-        />
+      renderItem={({ item }) => (
+        <Item {...item} width={width} currentIndex={currentIndex} totalItemCount={categories.length} />
       )}
       keyExtractor={(item) => item.uuid}
       horizontal
@@ -56,7 +49,7 @@ export const BestDealsList = ({ categories }: Props) => {
   );
 };
 
-const Item = ({ name, photo, width }: ItemProps) => {
+const Item = ({ name, photo, width, currentIndex, totalItemCount }: ItemProps) => {
   return (
     <ImageBackground
       source={{ uri: photo }}
@@ -66,14 +59,18 @@ const Item = ({ name, photo, width }: ItemProps) => {
       <View style={styles.itemInner}>
         <Text style={styles.itemName}>{name}</Text>
       </View>
-      {/* <View style={styles.indicatorContainer}>
-        {[...Array(totalItemCount)].map((i) => (
+      <View style={styles.indicatorContainer}>
+        {[...Array(totalItemCount)].map((_, i) => (
           <View
             key={i}
-            style={[styles.indicator, inView && styles.indicatorActive, lastItem && styles.indicatorLast]}
+            style={[
+              styles.indicator,
+              i === currentIndex && styles.indicatorActive,
+              i + 1 === totalItemCount && styles.indicatorLast,
+            ]}
           />
         ))}
-      </View> */}
+      </View>
     </ImageBackground>
   );
 };

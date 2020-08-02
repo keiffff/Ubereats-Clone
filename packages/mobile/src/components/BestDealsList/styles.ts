@@ -21,22 +21,22 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  // indicatorContainer: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   alignSelf: 'center',
-  //   position: 'absolute',
-  //   bottom: 24,
-  // },
-  // indicator: {
-  //   backgroundColor: 'rgba(255,255,255,.7)',
-  //   ...makeCircleStyle(6),
-  //   marginRight: 10,
-  // },
-  // indicatorLast: {
-  //   marginRight: 0,
-  // },
-  // indicatorActive: {
-  //   backgroundColor: '#ffffff',
-  // },
+  indicatorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 24,
+  },
+  indicator: {
+    backgroundColor: 'rgba(255,255,255,.5)',
+    ...makeCircleStyle(8),
+    marginRight: 16,
+  },
+  indicatorLast: {
+    marginRight: 0,
+  },
+  indicatorActive: {
+    backgroundColor: '#ffffff',
+  },
 });
