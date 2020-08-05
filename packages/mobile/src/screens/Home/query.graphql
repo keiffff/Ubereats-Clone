@@ -1,7 +1,15 @@
-query getFoodCategories {
+query home {
   food_categories {
     uuid
     name
     photo
+  }
+  order_foods(order_by: { count: desc }, limit: 10) {
+    food {
+      uuid
+      name
+      photo
+      price
+    }
   }
 }

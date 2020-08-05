@@ -3,12 +3,12 @@ import { View, Text } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { PopularFoodCategoriesList } from 'components/PopularFoodCategoriesList';
 import { BestDealsList } from 'components/BestDealsList';
-import { GetFoodCategoriesDocument } from 'types/graphql';
+import { HomeDocument } from 'types/graphql';
 import { styles } from './styles';
 import { LoadingView } from 'components/LoadingView';
 
 export const Home = () => {
-  const { data, loading } = useQuery(GetFoodCategoriesDocument);
+  const { data, loading } = useQuery(HomeDocument);
 
   return loading || !data ? (
     <LoadingView />

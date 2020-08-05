@@ -49,6 +49,18 @@
         table:
           schema: public
           name: order_foods
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - uuid
+      - name
+      - photo
+      - category_uuid
+      - description
+      - price
+      - restaurant_uuid
+      filter: {}
 - table:
     schema: public
     name: inventories
@@ -66,6 +78,14 @@
   - name: order
     using:
       foreign_key_constraint_on: order_uuid
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - count
+      - food_uuid
+      - uuid
+      filter: {}
 - table:
     schema: public
     name: orders
@@ -118,4 +138,6 @@
       - email
       - first_name
       - last_name
-      filter: {}
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
