@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
   },
   indicator: {
     backgroundColor: 'rgba(255,255,255,.5)',
-    ...makeCircleStyle(8),
+    ...makeCircleStyle(10),
     marginRight: 16,
   },
   indicatorLast: {

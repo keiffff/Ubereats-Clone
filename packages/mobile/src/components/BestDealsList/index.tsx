@@ -1,5 +1,5 @@
-import React, { useState, useMemo, ComponentProps, useRef } from 'react';
-import { View, Text, FlatList, ImageBackground, Dimensions } from 'react-native';
+import React, { useState, useMemo, ComponentProps, useRef, useCallback } from 'react';
+import { View, Text, FlatList, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 
 type Props = {
@@ -12,9 +12,11 @@ type ItemProps = {
   width: number;
   totalItemCount: number;
   currentIndex: number;
+  onScrollToIndex: (index: number) => void;
 };
 
 export const BestDealsList = ({ categories }: Props) => {
+  const flatListRef = useRef<FlatList<Props['categories'][number]>>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { width } = useMemo(() => Dimensions.get('window'), []);
   const onViewRef = useRef<NonNullable<ComponentProps<typeof FlatList>['onViewableItemsChanged']>>(
@@ -24,12 +26,23 @@ export const BestDealsList = ({ categories }: Props) => {
     },
   );
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
+  const handleScrollToIndex = useCallback((index: number) => {
+    if (!flatListRef.current) return;
+    flatListRef.current.scrollToIndex({ animated: true, index });
+  }, []);
 
   return (
     <FlatList
+      ref={flatListRef}
       data={categories}
       renderItem={({ item }) => (
-        <Item {...item} width={width} currentIndex={currentIndex} totalItemCount={categories.length} />
+        <Item
+          {...item}
+          width={width}
+          currentIndex={currentIndex}
+          totalItemCount={categories.length}
+          onScrollToIndex={handleScrollToIndex}
+        />
       )}
       keyExtractor={(item) => item.uuid}
       horizontal
@@ -49,7 +62,7 @@ export const BestDealsList = ({ categories }: Props) => {
   );
 };
 
-const Item = ({ name, photo, width, currentIndex, totalItemCount }: ItemProps) => {
+const Item = ({ name, photo, width, currentIndex, totalItemCount, onScrollToIndex }: ItemProps) => {
   return (
     <ImageBackground
       source={{ uri: photo }}
@@ -61,13 +74,14 @@ const Item = ({ name, photo, width, currentIndex, totalItemCount }: ItemProps) =
       </View>
       <View style={styles.indicatorContainer}>
         {[...Array(totalItemCount)].map((_, i) => (
-          <View
+          <TouchableOpacity
             key={i}
             style={[
               styles.indicator,
               i === currentIndex && styles.indicatorActive,
               i + 1 === totalItemCount && styles.indicatorLast,
             ]}
+            onPress={() => onScrollToIndex(i)}
           />
         ))}
       </View>
