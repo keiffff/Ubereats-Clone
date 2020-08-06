@@ -1,0 +1,7 @@
+query menu {
+  food_categories {
+    uuid
+    name
+    photo
+  }
+}
