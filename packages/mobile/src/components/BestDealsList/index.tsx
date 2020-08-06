@@ -11,9 +11,6 @@ type ItemProps = {
   name: string;
   photo: string;
   width: number;
-  totalItemCount: number;
-  currentIndex: number;
-  onScrollToIndex: (index: number) => void;
 };
 
 export const BestDealsList = ({ categories }: Props) => {
@@ -33,37 +30,44 @@ export const BestDealsList = ({ categories }: Props) => {
   const { width } = windowProps;
 
   return (
-    <FlatList
-      ref={flatListRef}
-      data={categories}
-      renderItem={({ item }) => (
-        <Item
-          {...item}
-          width={width}
-          currentIndex={currentIndex}
-          totalItemCount={categories.length}
-          onScrollToIndex={handleScrollToIndex}
-        />
-      )}
-      keyExtractor={(item) => item.uuid}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      decelerationRate="fast"
-      pagingEnabled
-      getItemLayout={(_, index) => ({
-        length: width,
-        offset: width * index,
-        index,
-      })}
-      snapToInterval={width}
-      bounces={false}
-      onViewableItemsChanged={onViewRef.current}
-      viewabilityConfig={viewConfigRef.current}
-    />
+    <View style={styles.base}>
+      <FlatList
+        ref={flatListRef}
+        data={categories}
+        renderItem={({ item }) => <Item {...item} width={width} />}
+        keyExtractor={(item) => item.uuid}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        decelerationRate="fast"
+        pagingEnabled
+        getItemLayout={(_, index) => ({
+          length: width,
+          offset: width * index,
+          index,
+        })}
+        snapToInterval={width}
+        bounces={false}
+        onViewableItemsChanged={onViewRef.current}
+        viewabilityConfig={viewConfigRef.current}
+      />
+      <View style={styles.indicatorContainer}>
+        {[...Array(categories.length)].map((_, i) => (
+          <TouchableOpacity
+            key={i}
+            style={[
+              styles.indicator,
+              i === currentIndex && styles.indicatorActive,
+              i + 1 === categories.length && styles.indicatorLast,
+            ]}
+            onPress={() => handleScrollToIndex(i)}
+          />
+        ))}
+      </View>
+    </View>
   );
 };
 
-const Item = ({ name, photo, width, currentIndex, totalItemCount, onScrollToIndex }: ItemProps) => {
+const Item = ({ name, photo, width }: ItemProps) => {
   return (
     <ImageBackground
       source={{ uri: photo }}
@@ -72,19 +76,6 @@ const Item = ({ name, photo, width, currentIndex, totalItemCount, onScrollToInde
     >
       <View style={styles.itemInner}>
         <Text style={styles.itemName}>{name}</Text>
-      </View>
-      <View style={styles.indicatorContainer}>
-        {[...Array(totalItemCount)].map((_, i) => (
-          <TouchableOpacity
-            key={i}
-            style={[
-              styles.indicator,
-              i === currentIndex && styles.indicatorActive,
-              i + 1 === totalItemCount && styles.indicatorLast,
-            ]}
-            onPress={() => onScrollToIndex(i)}
-          />
-        ))}
       </View>
     </ImageBackground>
   );

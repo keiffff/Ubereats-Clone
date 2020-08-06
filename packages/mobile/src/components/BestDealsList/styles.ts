@@ -2,24 +2,8 @@ import { StyleSheet } from 'react-native';
 import { makeCircleStyle } from 'helpers/styles';
 
 export const styles = StyleSheet.create({
-  itemImageBackground: {
+  base: {
     position: 'relative',
-    aspectRatio: 1.5,
-  },
-  itemImage: {
-    resizeMode: 'cover',
-  },
-  itemInner: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,.5)',
-  },
-  itemName: {
-    position: 'absolute',
-    alignSelf: 'center',
-    top: '50%',
-    color: 'rgba(255,255,255,.7)',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   indicatorContainer: {
     flexDirection: 'row',
@@ -38,5 +22,24 @@ export const styles = StyleSheet.create({
   },
   indicatorActive: {
     backgroundColor: '#ffffff',
+  },
+  itemImageBackground: {
+    position: 'relative',
+    aspectRatio: 1.5,
+  },
+  itemImage: {
+    resizeMode: 'cover',
+  },
+  itemInner: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,.5)',
+  },
+  itemName: {
+    position: 'absolute',
+    alignSelf: 'center',
+    top: '50%',
+    color: 'rgba(255,255,255,.7)',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
