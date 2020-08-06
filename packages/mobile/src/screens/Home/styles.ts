@@ -10,14 +10,19 @@ export const styles = StyleSheet.create({
     marginBottom: 24,
   },
   popularCategoriesListContainer: {
-    marginHorizontal: 8,
+    paddingHorizontal: 16,
+  },
+  bestDealsListContainer: {
+    marginBottom: 24,
+  },
+  popularFoodListContainer: {
+    marginBottom: 80,
   },
   contentTitleWrapper: {
-    marginLeft: 8,
+    marginLeft: 16,
     marginBottom: 12,
   },
   contentTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
   },
 });

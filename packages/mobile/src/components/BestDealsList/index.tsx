@@ -1,5 +1,6 @@
-import React, { useState, useMemo, ComponentProps, useRef, useCallback } from 'react';
-import { View, Text, FlatList, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
+import React, { useState, ComponentProps, useRef, useCallback } from 'react';
+import { View, Text, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
+import { windowProps } from 'constants/dimensions';
 import { styles } from './styles';
 
 type Props = {
@@ -18,7 +19,6 @@ type ItemProps = {
 export const BestDealsList = ({ categories }: Props) => {
   const flatListRef = useRef<FlatList<Props['categories'][number]>>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { width } = useMemo(() => Dimensions.get('window'), []);
   const onViewRef = useRef<NonNullable<ComponentProps<typeof FlatList>['onViewableItemsChanged']>>(
     ({ viewableItems }) => {
       if (!viewableItems.length) return;
@@ -30,6 +30,7 @@ export const BestDealsList = ({ categories }: Props) => {
     if (!flatListRef.current) return;
     flatListRef.current.scrollToIndex({ animated: true, index });
   }, []);
+  const { width } = windowProps;
 
   return (
     <FlatList

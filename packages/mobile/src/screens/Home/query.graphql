@@ -4,7 +4,7 @@ query home {
     name
     photo
   }
-  order_foods(order_by: { count: desc }, limit: 10) {
+  order_foods(distinct_on: food_uuid, order_by: { food_uuid: desc, count: desc }, limit: 10) {
     food {
       uuid
       name
