@@ -1,5 +1,6 @@
 import React, { useState, ComponentProps, useRef, useCallback } from 'react';
-import { View, Text, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, FlatList, TouchableOpacity } from 'react-native';
+import { FoodCategoryImageBackground } from 'components/FoodCategoryImageBackground';
 import { windowProps } from 'constants/dimensions';
 import { styles } from './styles';
 
@@ -34,7 +35,7 @@ export const BestDealsList = ({ categories }: Props) => {
       <FlatList
         ref={flatListRef}
         data={categories}
-        renderItem={({ item }) => <Item {...item} width={width} />}
+        renderItem={({ item }) => <FoodCategoryImageBackground {...item} style={{ width }} />}
         keyExtractor={(item) => item.uuid}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -64,19 +65,5 @@ export const BestDealsList = ({ categories }: Props) => {
         ))}
       </View>
     </View>
-  );
-};
-
-const Item = ({ name, photo, width }: ItemProps) => {
-  return (
-    <ImageBackground
-      source={{ uri: photo }}
-      style={[styles.itemImageBackground, { width }]}
-      imageStyle={styles.itemImage}
-    >
-      <View style={styles.itemInner}>
-        <Text style={styles.itemName}>{name}</Text>
-      </View>
-    </ImageBackground>
   );
 };
