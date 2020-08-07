@@ -25,5 +25,11 @@ module.exports = {
         withComponent: false,
       },
     },
+    './introspection.json': {
+      plugins: 'introspection',
+      config: {
+        minify: true,
+      },
+    },
   },
 };

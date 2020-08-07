@@ -11,3 +11,7 @@ web-build/
 
 # macOS
 .DS_Store
+
+# auto-generated
+introspection.json
+src/types/graphql.ts
