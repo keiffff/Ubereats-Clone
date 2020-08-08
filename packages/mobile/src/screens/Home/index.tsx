@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useQuery } from '@apollo/client';
 import { PopularFoodCategoriesList } from 'components/PopularFoodCategoriesList';
 import { BestDealsList } from 'components/BestDealsList';
 import { PopularFoodsList } from 'components/PopularFoodsList';
 import { HomeDocument } from 'types/graphql';
+import { StackParamList } from 'types/navigation';
 import { styles } from './styles';
 import { LoadingView } from 'components/LoadingView';
+import { routes } from 'constants/routes';
+
+type NavigationProp = {
+  navigation: StackNavigationProp<StackParamList, 'CATEGORY'>;
+};
 
 export const Home = () => {
+  const { navigate } = useNavigation<NavigationProp['navigation']>();
   const { data, loading } = useQuery(HomeDocument);
+  const handlePressCategory = useCallback((uuid: string) => navigate(routes.category, { categoryUuid: uuid }), [
+    navigate,
+  ]);
 
   return loading || !data ? (
     <LoadingView />
@@ -20,7 +32,7 @@ export const Home = () => {
           <Text style={styles.contentTitle}>Popular Categories</Text>
         </View>
         <View style={styles.popularCategoriesListContainer}>
-          <PopularFoodCategoriesList categories={data.food_categories} />
+          <PopularFoodCategoriesList categories={data.food_categories} onPressCategory={handlePressCategory} />
         </View>
       </View>
       <View style={styles.contentTitleWrapper}>
