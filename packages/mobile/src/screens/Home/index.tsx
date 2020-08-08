@@ -13,7 +13,7 @@ import { LoadingView } from 'components/LoadingView';
 import { routes } from 'constants/routes';
 
 type NavigationProp = {
-  navigation: StackNavigationProp<StackParamList, 'CATEGORY'>;
+  navigation: StackNavigationProp<StackParamList, 'CATEGORY' | 'FOOD'>;
 };
 
 export const Home = () => {
@@ -26,6 +26,14 @@ export const Home = () => {
       navigate(routes.category, { categoryUuid: uuid, categoryName: foodCategory.name });
     },
     [navigate, data?.food_categories],
+  );
+  const handlePressFood = useCallback(
+    (uuid: string) => {
+      const food = data?.order_foods.find((orderFood) => orderFood.food.uuid === uuid)?.food;
+      if (!food) return;
+      navigate(routes.food, { foodUuid: food.uuid, foodName: food.name });
+    },
+    [navigate, data?.order_foods],
   );
 
   return loading || !data ? (
@@ -50,7 +58,7 @@ export const Home = () => {
         <Text style={styles.contentTitle}>Most Popular</Text>
       </View>
       <View style={styles.popularFoodListContainer}>
-        <PopularFoodsList foods={data.order_foods.map(({ food }) => food)} />
+        <PopularFoodsList foods={data.order_foods.map(({ food }) => food)} onPressFood={handlePressFood} />
       </View>
     </ScrollView>
   );
