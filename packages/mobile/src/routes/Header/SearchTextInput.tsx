@@ -1,28 +1,34 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { TextInput, View, TouchableOpacity, Text, Image, Keyboard } from 'react-native';
 import { styles } from './styles';
 
-export const SearchTextInput = () => {
-  const [searchText, setSearchText] = useState('');
-  const handleChangeSearchText = useCallback((value: string) => setSearchText(value), []);
-  const handlePressClear = useCallback(() => setSearchText(''), []);
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+  onClear: () => void;
+  onCancel: () => void;
+  onSubmit: () => void;
+};
+
+export const SearchTextInput = ({ value, onChange, onClear, onCancel, onSubmit }: Props) => {
   const handlePressCancel = useCallback(() => {
+    onCancel();
     Keyboard.dismiss();
-    setSearchText('');
-  }, []);
+  }, [onCancel]);
 
   return (
     <View style={styles.searchTextInputContainer}>
       <View style={styles.searchTextInputWrapper}>
         <Image source={require('assets/search-icon.png')} style={styles.searhIcon} />
         <TextInput
-          value={searchText}
+          value={value}
           placeholder="Search..."
-          onChangeText={handleChangeSearchText}
+          onChangeText={onChange}
           autoFocus
+          onSubmitEditing={onSubmit}
           style={styles.searchTextInput}
         />
-        <TouchableOpacity style={styles.clearButton} onPress={handlePressClear}>
+        <TouchableOpacity style={styles.clearButton} onPress={onClear}>
           <Image source={require('assets/close-icon-circle.png')} />
         </TouchableOpacity>
       </View>

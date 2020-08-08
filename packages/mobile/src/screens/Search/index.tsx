@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { ScrollView } from 'react-native';
-// import { useQuery } from '@apollo/client';
 import { FoodsList } from 'components/FoodsList';
-// import { LoadingView } from 'components/LoadingView';
+import { LoadingView } from 'components/LoadingView';
 
-export const Search = () => {
-  // const { loading, data } = useQuery();
+type Props = {
+  loading: boolean;
+  foods?: ComponentProps<typeof FoodsList>['foods'];
+};
 
-  return (
+export const Search = ({ loading, foods }: Props) => {
+  return loading ? (
+    <LoadingView />
+  ) : !foods?.length ? (
+    <></>
+  ) : (
     <ScrollView>
-      <FoodsList foods={[]} />
+      <FoodsList foods={foods} />
     </ScrollView>
   );
 };

@@ -1,0 +1,9 @@
+query search($searchText: String!) {
+  search_foods(args: { searchtext: $searchText }) {
+    uuid
+    name
+    photo
+    price
+    description
+  }
+}
