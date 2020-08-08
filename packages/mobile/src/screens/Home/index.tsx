@@ -44,7 +44,7 @@ export const Home = () => {
         <Text style={styles.contentTitle}>Best Deals</Text>
       </View>
       <View style={styles.bestDealsListContainer}>
-        <BestDealsList categories={data.food_categories} />
+        <BestDealsList categories={data.food_categories} onPressCategory={handlePressCategory} />
       </View>
       <View style={styles.contentTitleWrapper}>
         <Text style={styles.contentTitle}>Most Popular</Text>

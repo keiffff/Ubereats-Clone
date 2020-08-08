@@ -6,15 +6,17 @@ import { styles } from './styles';
 
 type Props = {
   categories: (Pick<ItemProps, 'name' | 'photo'> & { uuid: string })[];
+  onPressCategory: ItemProps['onPressCategory'];
 };
 
 type ItemProps = {
   name: string;
   photo: string;
   width: number;
+  onPressCategory: (uuid: string) => void;
 };
 
-export const BestDealsList = ({ categories }: Props) => {
+export const BestDealsList = ({ categories, onPressCategory }: Props) => {
   const flatListRef = useRef<FlatList<Props['categories'][number]>>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const onViewRef = useRef<NonNullable<ComponentProps<typeof FlatList>['onViewableItemsChanged']>>(
@@ -35,7 +37,9 @@ export const BestDealsList = ({ categories }: Props) => {
       <FlatList
         ref={flatListRef}
         data={categories}
-        renderItem={({ item }) => <FoodCategoryImageBackground {...item} style={{ width }} />}
+        renderItem={({ item }) => (
+          <FoodCategoryImageBackground {...item} onPressCategory={onPressCategory} style={{ width }} />
+        )}
         keyExtractor={(item) => item.uuid}
         horizontal
         showsHorizontalScrollIndicator={false}

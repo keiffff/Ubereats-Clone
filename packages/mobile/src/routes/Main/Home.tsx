@@ -7,7 +7,7 @@ import { Category } from 'screens/Category';
 import { routes } from 'constants/routes';
 import { StackParamList } from 'types/navigation';
 
-const Stack = createStackNavigator<StackParamList>();
+const Stack = createStackNavigator<Pick<StackParamList, 'HOME' | 'CATEGORY'>>();
 
 export const HomeNavigator = () => (
   <Stack.Navigator>
