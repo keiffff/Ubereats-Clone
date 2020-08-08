@@ -3,5 +3,6 @@ export const routes = {
   menu: 'MENU',
   category: 'CATEGORY',
   search: 'SEARCH',
+  food: 'FOOD',
   logout: 'LOGOUT',
 } as const;

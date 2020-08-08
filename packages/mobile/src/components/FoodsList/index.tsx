@@ -1,32 +1,37 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
+import React, { useCallback } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 
 type Props = {
-  foods: (Pick<ItemProps, 'name' | 'photo' | 'price' | 'description'> & { uuid: string })[];
+  foods: Pick<ItemProps, 'uuid' | 'name' | 'photo' | 'price' | 'description'>[];
+  onPressFood: ItemProps['onPressFood'];
 };
 
 type ItemProps = {
+  uuid: string;
   name: string;
   photo: string;
   price: number;
   description: string;
   lastItem: boolean;
+  onPressFood: (uuid: string) => void;
 };
 
-export const FoodsList = ({ foods }: Props) => {
+export const FoodsList = ({ foods, onPressFood }: Props) => {
   return (
     <View style={styles.base}>
       {foods.map(({ uuid, ...rest }, i) => (
-        <Item key={uuid} {...rest} lastItem={foods.length === i + 1} />
+        <Item key={uuid} uuid={uuid} {...rest} lastItem={foods.length === i + 1} onPressFood={onPressFood} />
       ))}
     </View>
   );
 };
 
-const Item = ({ name, photo, price, description, lastItem }: ItemProps) => {
+const Item = ({ uuid, name, photo, price, description, lastItem, onPressFood }: ItemProps) => {
+  const handlePressFood = useCallback(() => onPressFood(uuid), [onPressFood, uuid]);
+
   return (
-    <View style={[styles.itemContainer, lastItem && styles.itemContainerLast]}>
+    <TouchableOpacity style={[styles.itemContainer, lastItem && styles.itemContainerLast]} onPress={handlePressFood}>
       <View style={styles.itemInfoContainer}>
         <View style={styles.itemNameContainer}>
           <Text style={styles.itemName} numberOfLines={2}>
@@ -39,6 +44,6 @@ const Item = ({ name, photo, price, description, lastItem }: ItemProps) => {
         </View>
       </View>
       <Image style={styles.itemImage} source={{ uri: photo }} />
-    </View>
+    </TouchableOpacity>
   );
 };
