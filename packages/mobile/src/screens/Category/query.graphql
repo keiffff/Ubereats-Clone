@@ -1,0 +1,9 @@
+query category($categoryUuid: uuid!) {
+  foods(where: { category_uuid: { _eq: $categoryUuid } }) {
+    uuid
+    name
+    photo
+    price
+    description
+  }
+}

@@ -1,7 +1,10 @@
 import React from 'react';
 import { ScrollView, Text } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import { useQuery } from '@apollo/client';
+import { CategoryDocument } from 'types/graphql';
 import { StackParamList } from 'types/navigation';
+import { LoadingView } from 'components/LoadingView';
 
 type NavigationProp = {
   route: RouteProp<StackParamList, 'CATEGORY'>;
@@ -9,8 +12,11 @@ type NavigationProp = {
 
 export const Category = () => {
   const { params } = useRoute<NavigationProp['route']>();
+  const { loading, data } = useQuery(CategoryDocument, { variables: { categoryUuid: params.categoryUuid } });
 
-  return (
+  return loading || !data ? (
+    <LoadingView />
+  ) : (
     <ScrollView>
       <Text>Category {params.categoryName}</Text>
     </ScrollView>
