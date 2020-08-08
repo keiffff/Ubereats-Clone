@@ -24,6 +24,14 @@
   - name: food
     using:
       foreign_key_constraint_on: food_uuid
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - uuid
+      - photo
+      - food_uuid
+      filter: {}
 - table:
     schema: public
     name: foods

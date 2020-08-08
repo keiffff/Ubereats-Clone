@@ -1,0 +1,12 @@
+query food($uuid: uuid!) {
+  foods_by_pk(uuid: $uuid) {
+    uuid
+    name
+    description
+    price
+    food_details {
+      uuid
+      photo
+    }
+  }
+}
