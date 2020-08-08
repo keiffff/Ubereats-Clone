@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import { CategoryDocument } from 'types/graphql';
 import { StackParamList } from 'types/navigation';
+import { FoodsList } from 'components/FoodsList';
 import { LoadingView } from 'components/LoadingView';
 
 type NavigationProp = {
@@ -18,7 +19,7 @@ export const Category = () => {
     <LoadingView />
   ) : (
     <ScrollView>
-      <Text>Category {params.categoryName}</Text>
+      <FoodsList foods={data.foods} />
     </ScrollView>
   );
 };

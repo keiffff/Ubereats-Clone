@@ -1,5 +1,5 @@
-import React, { useState, useMemo, ComponentProps, useRef, useCallback } from 'react';
-import { View, Text, FlatList, Image, SectionList, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text, Image } from 'react-native';
 import { styles } from './styles';
 
 type Props = {
