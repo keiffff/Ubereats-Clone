@@ -3,9 +3,11 @@ import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView } from '
 import { routes } from 'constants/routes';
 import { HomeNavigator } from './Home';
 import { MenuNavigator } from './Menu';
+import { SearchNavigator } from './Search';
 import { LogoutItem } from '../Drawer/LogoutItem';
 import { ShopIcon } from '../Drawer/ShopIcon';
 import { MenuIcon } from '../Drawer/MenuIcon';
+import { SearchIcon } from '../Drawer/SearchIcon';
 
 const DrawerStack = createDrawerNavigator();
 
@@ -35,5 +37,10 @@ export const Main = () => (
   >
     <DrawerStack.Screen name={routes.home} component={HomeNavigator} options={{ drawerIcon: () => <ShopIcon /> }} />
     <DrawerStack.Screen name={routes.menu} component={MenuNavigator} options={{ drawerIcon: () => <MenuIcon /> }} />
+    <DrawerStack.Screen
+      name={routes.search}
+      component={SearchNavigator}
+      options={{ drawerIcon: () => <SearchIcon /> }}
+    />
   </DrawerStack.Navigator>
 );
