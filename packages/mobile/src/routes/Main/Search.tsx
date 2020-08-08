@@ -5,10 +5,12 @@ import { HamburgerButton } from '../Header/HamburgerButton';
 import { SearchTextInput } from '../Header/SearchTextInput';
 import { ShoppingCartButton } from '../Header/ShoppingCartButton';
 import { Search } from 'screens/Search';
+import { Food } from 'screens/Food';
 import { routes } from 'constants/routes';
 import { SearchDocument } from 'types/graphql';
+import { StackParamList } from 'types/navigation';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD'>>();
 
 export const SearchNavigator = () => {
   const [searchText, setSearchText] = useState('');
@@ -44,6 +46,15 @@ export const SearchNavigator = () => {
       >
         {() => <Search loading={loading} foods={data?.search_foods} />}
       </Stack.Screen>
+      <Stack.Screen
+        name={routes.food}
+        component={Food}
+        options={({ route }) => ({
+          title: route.params.foodName,
+          headerTitleAlign: 'center',
+          headerTintColor: '#000000',
+        })}
+      />
     </Stack.Navigator>
   );
 };
