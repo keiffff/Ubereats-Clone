@@ -19,9 +19,14 @@ type NavigationProp = {
 export const Home = () => {
   const { navigate } = useNavigation<NavigationProp['navigation']>();
   const { data, loading } = useQuery(HomeDocument);
-  const handlePressCategory = useCallback((uuid: string) => navigate(routes.category, { categoryUuid: uuid }), [
-    navigate,
-  ]);
+  const handlePressCategory = useCallback(
+    (uuid: string) => {
+      const foodCategory = data?.food_categories.find((category) => category.uuid === uuid);
+      if (!foodCategory) return;
+      navigate(routes.category, { categoryUuid: uuid, categoryName: foodCategory.name });
+    },
+    [navigate, data?.food_categories],
+  );
 
   return loading || !data ? (
     <LoadingView />

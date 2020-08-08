@@ -13,6 +13,7 @@ export const MenuNavigator = () => (
       name={routes.menu}
       component={Menu}
       options={{
+        title: 'Menu',
         headerLeft: () => <HamburgerButton />,
         headerTitleAlign: 'center',
         headerRight: () => <ShoppingCartButton />,
