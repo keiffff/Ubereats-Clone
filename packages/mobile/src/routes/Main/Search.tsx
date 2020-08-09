@@ -17,10 +17,6 @@ export const SearchNavigator = () => {
   const [searchFoods, { loading, data }] = useLazyQuery(SearchDocument);
   const handleChangeSearchText = useCallback((value: string) => setSearchText(value), []);
   const handleClearSearchText = useCallback(() => setSearchText(''), []);
-  const handleCancel = useCallback(() => {
-    setSearchText('');
-    searchFoods({ variables: { searchText: '' } });
-  }, [searchFoods]);
   const handleSubmit = useCallback(() => {
     searchFoods({ variables: { searchText } });
   }, [searchText, searchFoods]);
@@ -36,7 +32,7 @@ export const SearchNavigator = () => {
               value={searchText}
               onChange={handleChangeSearchText}
               onClear={handleClearSearchText}
-              onCancel={handleCancel}
+              onCancel={handleClearSearchText}
               onSubmit={handleSubmit}
             />
           ),
