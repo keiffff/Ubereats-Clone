@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   searchTextInputWrapper: {
-    width: 180,
+    flexShrink: 1,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 4,
