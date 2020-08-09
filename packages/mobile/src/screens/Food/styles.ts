@@ -7,4 +7,10 @@ export const styles = StyleSheet.create({
     paddingVertical: 24,
     paddingHorizontal: 16,
   },
+  foodDetailContainer: {
+    marginBottom: 40,
+  },
+  counterContainer: {
+    alignItems: 'center',
+  },
 });
