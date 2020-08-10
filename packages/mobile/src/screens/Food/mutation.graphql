@@ -1,0 +1,5 @@
+mutation createOrder($userId: String!, $order_foods: order_foods_arr_rel_insert_input!) {
+  insert_orders_one(object: { user_id: $userId, order_foods: $order_foods }) {
+    created_at
+  }
+}
