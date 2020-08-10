@@ -1,6 +1,6 @@
 import React, { ReactNode, createContext } from 'react';
 import { useQuery } from '@apollo/client';
-import { GetUserByIdDocument } from 'types/graphql';
+import { GetUserByIdDocument } from './query.graphql';
 import { useContext } from 'hooks/useContext';
 import { useAuth } from 'providers/Auth';
 import { LoadingView } from 'components/LoadingView';

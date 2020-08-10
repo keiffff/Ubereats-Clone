@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useLazyQuery } from '@apollo/client';
-import { HamburgerButton } from '../Header/HamburgerButton';
-import { SearchTextInput } from '../Header/SearchTextInput';
-import { ShoppingCartButton } from '../Header/ShoppingCartButton';
+import { HamburgerButton } from '../../Header/HamburgerButton';
+import { SearchTextInput } from '../../Header/SearchTextInput';
+import { ShoppingCartButton } from '../../Header/ShoppingCartButton';
 import { Search } from 'screens/Search';
 import { Food } from 'screens/Food';
 import { routes } from 'constants/routes';
-import { SearchDocument } from 'types/graphql';
+import { SearchDocument } from './query.graphql';
 import { StackParamList } from 'types/navigation';
 
 const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD'>>();

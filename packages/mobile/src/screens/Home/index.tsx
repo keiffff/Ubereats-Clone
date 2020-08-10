@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import { PopularFoodCategoriesList } from 'components/PopularFoodCategoriesList';
 import { BestDealsList } from 'components/BestDealsList';
 import { PopularFoodsList } from 'components/PopularFoodsList';
-import { HomeDocument } from 'types/graphql';
+import { HomeDocument } from './query.graphql';
 import { StackParamList } from 'types/navigation';
 import { styles } from './styles';
 import { LoadingView } from 'components/LoadingView';

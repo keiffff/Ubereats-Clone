@@ -12,24 +12,29 @@ module.exports = {
   overwrite: true,
   generates: {
     './src/types/graphql.ts': {
-      plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
+      plugins: ['typescript'],
       config: {
         enumsAsTypes: true,
-        namingConvention: {
-          transformUnderscore: true,
-        },
+      },
+    },
+    './src/': {
+      preset: 'near-operation-file',
+      presetConfig: {
+        extension: '.graphql.ts',
+        baseTypesPath: 'types/graphql.ts',
+      },
+      plugins: ['typescript-operations', 'typed-document-node'],
+    },
+    './introspection.json': {
+      plugins: 'introspection',
+      config: {
+        minify: true,
         reactApolloVersion: 3,
         gqlImport: '@apollo/client#gql',
         skipTypename: false,
         withHooks: false,
         withHOC: false,
         withComponent: false,
-      },
-    },
-    './introspection.json': {
-      plugins: 'introspection',
-      config: {
-        minify: true,
       },
     },
   },
