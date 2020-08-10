@@ -86,6 +86,19 @@
   - name: order
     using:
       foreign_key_constraint_on: order_uuid
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        order:
+          user_id:
+            _eq: X-Hasura-User-Id
+      columns:
+      - uuid
+      - food_uuid
+      - order_uuid
+      - count
+      backend_only: false
   select_permissions:
   - role: user
     permission:
@@ -113,6 +126,37 @@
         table:
           schema: public
           name: order_foods
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - uuid
+      - user_id
+      - created_at
+      - status
+      - updated_at
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - uuid
+      - user_id
+      - created_at
+      - status
+      - updated_at
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: restaurants
