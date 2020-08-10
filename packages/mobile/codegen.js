@@ -29,12 +29,6 @@ module.exports = {
       plugins: 'introspection',
       config: {
         minify: true,
-        reactApolloVersion: 3,
-        gqlImport: '@apollo/client#gql',
-        skipTypename: false,
-        withHooks: false,
-        withHOC: false,
-        withComponent: false,
       },
     },
   },
