@@ -96,6 +96,10 @@
       filter: {}
 - table:
     schema: public
+    name: order_status
+  is_enum: true
+- table:
+    schema: public
     name: orders
   object_relationships:
   - name: user
