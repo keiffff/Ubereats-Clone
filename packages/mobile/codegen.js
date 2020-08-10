@@ -14,6 +14,7 @@ module.exports = {
     './src/types/graphql.ts': {
       plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
       config: {
+        enumsAsTypes: true,
         namingConvention: {
           transformUnderscore: true,
         },
