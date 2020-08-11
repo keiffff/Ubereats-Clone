@@ -3,7 +3,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import { StackParamList } from 'types/navigation';
-import { FoodDocument } from './index.graphql';
+import { GetFoodByUuidDocument } from './index.graphql';
 import { FoodDetail } from 'components/FoodDetail';
 import { Counter } from 'components/Counter';
 import { styles } from './styles';
@@ -18,7 +18,7 @@ const MAX_COUNT_TO_ADD_TO_CART = 99;
 
 export const Food = () => {
   const { params } = useRoute<NavigationProp['route']>();
-  const { loading, data } = useQuery(FoodDocument, { variables: { uuid: params.foodUuid } });
+  const { loading, data } = useQuery(GetFoodByUuidDocument, { variables: { uuid: params.foodUuid } });
   const [count, setCount] = useState(0);
   const handlePressIncrement = useCallback(() => setCount((prev) => prev + 1), []);
   const handlePressDecrement = useCallback(() => setCount((prev) => prev - 1), []);

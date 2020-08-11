@@ -1,4 +1,4 @@
-query category($categoryUuid: uuid!) {
+query getFoodsByCategoryUuid($categoryUuid: uuid!) {
   foods(where: { category_uuid: { _eq: $categoryUuid } }) {
     uuid
     name

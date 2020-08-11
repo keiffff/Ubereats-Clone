@@ -1,4 +1,4 @@
-query search($searchText: String!) {
+query searchFoodsByText($searchText: String!) {
   search_foods(args: { searchtext: $searchText }) {
     uuid
     name

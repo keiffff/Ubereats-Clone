@@ -1,4 +1,4 @@
-query food($uuid: uuid!) {
+query getFoodByUuid($uuid: uuid!) {
   foods_by_pk(uuid: $uuid) {
     uuid
     name

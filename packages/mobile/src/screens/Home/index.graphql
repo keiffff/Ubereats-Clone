@@ -1,4 +1,4 @@
-query home {
+query getFoodCategoriesAndOrderFoods {
   food_categories {
     uuid
     name

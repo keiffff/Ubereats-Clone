@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import { PopularFoodCategoriesList } from 'components/PopularFoodCategoriesList';
 import { BestDealsList } from 'components/BestDealsList';
 import { PopularFoodsList } from 'components/PopularFoodsList';
-import { HomeDocument } from './index.graphql';
+import { GetFoodCategoriesAndOrderFoodsDocument } from './index.graphql';
 import { StackParamList } from 'types/navigation';
 import { styles } from './styles';
 import { LoadingView } from 'components/LoadingView';
@@ -18,7 +18,7 @@ type NavigationProp = {
 
 export const Home = () => {
   const { navigate } = useNavigation<NavigationProp['navigation']>();
-  const { data, loading } = useQuery(HomeDocument);
+  const { data, loading } = useQuery(GetFoodCategoriesAndOrderFoodsDocument);
   const handlePressCategory = useCallback(
     (uuid: string) => {
       const foodCategory = data?.food_categories.find((category) => category.uuid === uuid);

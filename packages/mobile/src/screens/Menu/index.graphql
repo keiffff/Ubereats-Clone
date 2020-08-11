@@ -1,4 +1,4 @@
-query menu {
+query getFoodCategories {
   food_categories {
     uuid
     name

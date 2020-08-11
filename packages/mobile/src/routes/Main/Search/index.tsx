@@ -7,19 +7,19 @@ import { ShoppingCartButton } from '../../Header/ShoppingCartButton';
 import { Search } from 'screens/Search';
 import { Food } from 'screens/Food';
 import { routes } from 'constants/routes';
-import { SearchDocument } from './index.graphql';
+import { SearchFoodsByTextDocument } from './index.graphql';
 import { StackParamList } from 'types/navigation';
 
 const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD'>>();
 
 export const SearchNavigator = () => {
   const [searchText, setSearchText] = useState('');
-  const [searchFoods, { loading, data }] = useLazyQuery(SearchDocument);
+  const [searchFoodsByText, { loading, data }] = useLazyQuery(SearchFoodsByTextDocument);
   const handleChangeSearchText = useCallback((value: string) => setSearchText(value), []);
   const handleClearSearchText = useCallback(() => setSearchText(''), []);
   const handleSubmit = useCallback(() => {
-    searchFoods({ variables: { searchText } });
-  }, [searchText, searchFoods]);
+    searchFoodsByText({ variables: { searchText } });
+  }, [searchText, searchFoodsByText]);
 
   return (
     <Stack.Navigator>
