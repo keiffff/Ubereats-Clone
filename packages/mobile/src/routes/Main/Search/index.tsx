@@ -7,7 +7,7 @@ import { ShoppingCartButton } from '../../Header/ShoppingCartButton';
 import { Search } from 'screens/Search';
 import { Food } from 'screens/Food';
 import { routes } from 'constants/routes';
-import { SearchDocument } from './query.graphql';
+import { SearchDocument } from './index.graphql';
 import { StackParamList } from 'types/navigation';
 
 const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD'>>();

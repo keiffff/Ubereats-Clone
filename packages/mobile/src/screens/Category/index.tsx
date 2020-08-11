@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { ScrollView } from 'react-native';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
-import { CategoryDocument } from './query.graphql';
+import { CategoryDocument } from './index.graphql';
 import { StackParamList } from 'types/navigation';
 import { FoodsList } from 'components/FoodsList';
 import { LoadingView } from 'components/LoadingView';

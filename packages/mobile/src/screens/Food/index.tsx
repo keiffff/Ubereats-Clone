@@ -3,7 +3,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import { StackParamList } from 'types/navigation';
-import { FoodDocument } from './query.graphql';
+import { FoodDocument } from './index.graphql';
 import { FoodDetail } from 'components/FoodDetail';
 import { Counter } from 'components/Counter';
 import { styles } from './styles';

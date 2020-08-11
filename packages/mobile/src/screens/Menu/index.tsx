@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useQuery } from '@apollo/client';
-import { MenuDocument } from './query.graphql';
+import { MenuDocument } from './index.graphql';
 import { LoadingView } from 'components/LoadingView';
 import { StackParamList } from 'types/navigation';
 import { FoodCategoryImageBackground } from 'components/FoodCategoryImageBackground';
