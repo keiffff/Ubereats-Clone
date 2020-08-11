@@ -16,12 +16,19 @@ module.exports = {
   ],
   documents: './src/**/*.graphql',
   overwrite: true,
+  config: {
+    scalars: {
+      timestamptz: 'string',
+      uuid: 'string',
+      numeric: 'number',
+    },
+  },
   generates: {
     './src/types/graphql.d.ts': {
       plugins: ['typescript'],
       config: {
-        enumsAsTypes: true,
         ...generatesSharedConfig,
+        enumsAsTypes: true,
       },
     },
     './src/': {
