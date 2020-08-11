@@ -9,6 +9,7 @@
     "down": "docker-compose down",
     "console": "hasura console",
     "metadata": "hasura metadata",
-    "migrate": "hasura migrate"
+    "migrate": "hasura migrate",
+    "seeds": "hasura seeds"
   }
 }
