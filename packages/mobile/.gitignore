@@ -14,4 +14,4 @@ web-build/
 
 # auto-generated
 introspection.json
-*graphql.ts
+*graphql*.ts

@@ -11,7 +11,7 @@ module.exports = {
   documents: './src/**/*.graphql',
   overwrite: true,
   generates: {
-    './src/types/graphql.ts': {
+    './src/types/graphql.d.ts': {
       plugins: ['typescript'],
       config: {
         enumsAsTypes: true,
