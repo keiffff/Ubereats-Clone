@@ -1,3 +1,9 @@
+const generatesSharedConfig = {
+  namingConvention: {
+    transformUnderscore: true,
+  },
+};
+
 module.exports = {
   schema: [
     {
@@ -15,6 +21,7 @@ module.exports = {
       plugins: ['typescript'],
       config: {
         enumsAsTypes: true,
+        ...generatesSharedConfig,
       },
     },
     './src/': {
@@ -24,6 +31,7 @@ module.exports = {
         baseTypesPath: 'types/graphql.ts',
       },
       plugins: ['typescript-operations', 'typed-document-node'],
+      config: generatesSharedConfig,
     },
     './introspection.json': {
       plugins: 'introspection',
