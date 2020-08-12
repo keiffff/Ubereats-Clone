@@ -39,9 +39,6 @@
   - name: food_category
     using:
       foreign_key_constraint_on: category_uuid
-  - name: restaurant
-    using:
-      foreign_key_constraint_on: restaurant_uuid
   array_relationships:
   - name: food_details
     using:
@@ -61,13 +58,12 @@
   - role: user
     permission:
       columns:
-      - uuid
-      - name
-      - photo
       - category_uuid
       - description
+      - name
+      - photo
       - price
-      - restaurant_uuid
+      - uuid
       filter: {}
 - table:
     schema: public
@@ -161,13 +157,6 @@
     schema: public
     name: restaurants
   array_relationships:
-  - name: foods
-    using:
-      foreign_key_constraint_on:
-        column: restaurant_uuid
-        table:
-          schema: public
-          name: foods
   - name: inventories
     using:
       foreign_key_constraint_on:
