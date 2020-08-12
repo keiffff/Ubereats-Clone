@@ -1,5 +1,110 @@
 - table:
     schema: public
+    name: cart_foods
+  object_relationships:
+  - name: cart
+    using:
+      foreign_key_constraint_on: cart_uuid
+  - name: food
+    using:
+      foreign_key_constraint_on: food_uuid
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        cart:
+          user:
+            id:
+              _eq: X-Hasura-User-Id
+      columns:
+      - uuid
+      - cart_uuid
+      - food_uuid
+      - count
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - count
+      - cart_uuid
+      - food_uuid
+      - uuid
+      filter:
+        cart:
+          user:
+            id:
+              _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - count
+      - cart_uuid
+      - food_uuid
+      - uuid
+      filter:
+        cart:
+          user:
+            id:
+              _eq: X-Hasura-User-Id
+      check:
+        cart:
+          user:
+            id:
+              _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: carts
+  object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+  array_relationships:
+  - name: cart_foods
+    using:
+      foreign_key_constraint_on:
+        column: cart_uuid
+        table:
+          schema: public
+          name: cart_foods
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user:
+          id:
+            _eq: X-Hasura-User-Id
+      columns:
+      - uuid
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - uuid
+      filter:
+        user:
+          id:
+            _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - uuid
+      filter:
+        user:
+          id:
+            _eq: X-Hasura-User-Id
+      check:
+        user:
+          id:
+            _eq: X-Hasura-User-Id
+- table:
+    schema: public
     name: food_categories
   array_relationships:
   - name: foods
@@ -40,6 +145,13 @@
     using:
       foreign_key_constraint_on: category_uuid
   array_relationships:
+  - name: cart_foods
+    using:
+      foreign_key_constraint_on:
+        column: food_uuid
+        table:
+          schema: public
+          name: cart_foods
   - name: food_details
     using:
       foreign_key_constraint_on:
@@ -92,19 +204,6 @@
   - name: order
     using:
       foreign_key_constraint_on: order_uuid
-  insert_permissions:
-  - role: user
-    permission:
-      check:
-        order:
-          user_id:
-            _eq: X-Hasura-User-Id
-      columns:
-      - uuid
-      - food_uuid
-      - order_uuid
-      - count
-      backend_only: false
   select_permissions:
   - role: user
     permission:
@@ -132,37 +231,6 @@
         table:
           schema: public
           name: order_foods
-  insert_permissions:
-  - role: user
-    permission:
-      check:
-        user_id:
-          _eq: X-Hasura-User-Id
-      columns:
-      - uuid
-      - user_id
-      - created_at
-      - status
-      - updated_at
-      backend_only: false
-  select_permissions:
-  - role: user
-    permission:
-      columns:
-      - uuid
-      - user_id
-      - created_at
-      - status
-      - updated_at
-      filter:
-        user_id:
-          _eq: X-Hasura-User-Id
-  delete_permissions:
-  - role: user
-    permission:
-      filter:
-        user_id:
-          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: restaurants
@@ -178,6 +246,13 @@
     schema: public
     name: users
   array_relationships:
+  - name: carts
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: carts
   - name: orders
     using:
       foreign_key_constraint_on:
