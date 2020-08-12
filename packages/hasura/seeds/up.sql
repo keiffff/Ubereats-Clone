@@ -31,68 +31,108 @@ Plainfield, NJ 07060'),
 Twin Falls, ID 83301');
 
 INSERT INTO foods
-  (name, photo, category_uuid, description, price, restaurant_uuid)
+  (name, photo, category_uuid, description, price)
 VALUES
   ('bread with sunny side-up egg', 'https://storage.googleapis.com/ubereats-clone/foods/ben-kolde-FFqNATH27EM-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Breakfast'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 10, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Lonesome Dove')),
+    WHERE name = 'Breakfast'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 10),
   ('toast bread with blueberry on black plate', 'https://storage.googleapis.com/ubereats-clone/foods/joseph-gonzalez-zcUgjyqEwe8-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Breakfast'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 8, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Lonesome Dove')),
+    WHERE name = 'Breakfast'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 8),
   ('noodles with sliced red bell pepper, carrots, and meat', 'https://storage.googleapis.com/ubereats-clone/foods/eriks-irmejs-Prtmg56zIX0-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Ramen'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 11, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Melting Pot')),
+    WHERE name = 'Ramen'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 11),
   ('soup with green leaf on white ceramic bowl', 'https://storage.googleapis.com/ubereats-clone/foods/cody-chan-BLaiOhpirAQ-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Ramen'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 13, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Melting Pot')),
+    WHERE name = 'Ramen'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 13),
   ('sandwhiches with hum', 'https://storage.googleapis.com/ubereats-clone/foods/eaters-collective-uhJfaJ6c9fY-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Sandwhiches'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 7, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Bobby’s')),
+    WHERE name = 'Sandwhiches'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 7),
   ('dumplings on cast iron pan', 'https://storage.googleapis.com/ubereats-clone/foods/louis-hansel-shotsoflouis-2hmDY2HZA8U-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Mediterranean'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 16, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Grubber Hub')),
+    WHERE name = 'Mediterranean'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 16),
   ('sliced salmon on rice bowl', 'https://storage.googleapis.com/ubereats-clone/foods/haley-truong-UcVxV6BN2z8-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Japanese'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 12, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Easy Eats')),
+    WHERE name = 'Japanese'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 12),
   ('sushi on brown wooden tray', 'https://storage.googleapis.com/ubereats-clone/foods/spencer-chow-PF_zcUW_NYU-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Sushi'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 24, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Easy Eats')),
+    WHERE name = 'Sushi'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 24),
   ('four pieces of meat tacos on tray', 'https://storage.googleapis.com/ubereats-clone/foods/amie-watson-2hBUvhe81mU-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'New Mexican'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 14, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Bobby’s')),
+    WHERE name = 'New Mexican'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 14),
   ('pasta dish in white plastic container', 'https://storage.googleapis.com/ubereats-clone/foods/sanket-shah-IA0UhqgGgNY-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Bar Food'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 12, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Daytime Place')),
+    WHERE name = 'Bar Food'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 12),
   ('pepperoni pizza', 'https://storage.googleapis.com/ubereats-clone/foods/wesual-click-jkC1ul95ujQ-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Italian'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 18, (SELECT uuid
-    FROM restaurants
-    WHERE name = 'Daytime Place')),
+    WHERE name = 'Italian'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 18),
   ('simple burger with fries', 'https://storage.googleapis.com/ubereats-clone/foods/jonathan-borba-8l8Yl2ruUsg-unsplash.jpg', (SELECT uuid
     FROM food_categories
-    WHERE name = 'Burgers'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 16, (SELECT uuid
+    WHERE name = 'Burgers'), 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes', 16);
+
+INSERT INTO inventories
+  (restaurant_uuid, food_uuid, stock_available)
+VALUES
+  ((SELECT uuid
     FROM restaurants
-    WHERE name = 'Bobby’s'));
+    WHERE name = 'Lonesome Dove'), (SELECT uuid
+    FROM foods
+    WHERE name = 'bread with sunny side-up egg'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Lonesome Dove'), (SELECT uuid
+    FROM foods
+    WHERE name = 'toast bread with blueberry on black plate'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Melting Pot'), (SELECT uuid
+    FROM foods
+    WHERE name = 'noodles with sliced red bell pepper, carrots, and meat'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Melting Pot'), (SELECT uuid
+    FROM foods
+    WHERE name = 'soup with green leaf on white ceramic bowl'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Bobby’s'), (SELECT uuid
+    FROM foods
+    WHERE name = 'sandwhiches with hum'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Grubber Hub'), (SELECT uuid
+    FROM foods
+    WHERE name = 'dumplings on cast iron pan'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Easy Eats'), (SELECT uuid
+    FROM foods
+    WHERE name = 'sliced salmon on rice bowl'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Easy Eats'), (SELECT uuid
+    FROM foods
+    WHERE name = 'sushi on brown wooden tray'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Bobby’s'), (SELECT uuid
+    FROM foods
+    WHERE name = 'four pieces of meat tacos on tray'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Daytime Place'), (SELECT uuid
+    FROM foods
+    WHERE name = 'pasta dish in white plastic container'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Daytime Place'), (SELECT uuid
+    FROM foods
+    WHERE name = 'pepperoni pizza'), true),
+  ((SELECT uuid
+    FROM restaurants
+    WHERE name = 'Bobby’s'), (SELECT uuid
+    FROM foods
+    WHERE name = 'simple burger with fries'), true);
 
 INSERT INTO food_details
   (photo, food_uuid)
