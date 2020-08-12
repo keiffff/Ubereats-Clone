@@ -47,6 +47,13 @@
         table:
           schema: public
           name: food_details
+  - name: inventories
+    using:
+      foreign_key_constraint_on:
+        column: food_uuid
+        table:
+          schema: public
+          name: inventories
   - name: order_foods
     using:
       foreign_key_constraint_on:
@@ -69,6 +76,9 @@
     schema: public
     name: inventories
   object_relationships:
+  - name: food
+    using:
+      foreign_key_constraint_on: food_uuid
   - name: restaurant
     using:
       foreign_key_constraint_on: restaurant_uuid
