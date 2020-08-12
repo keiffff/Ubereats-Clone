@@ -10,9 +10,3 @@ query getFoodByUuid($uuid: uuid!) {
     }
   }
 }
-
-mutation createOrder($userId: String!, $orderFoods: order_foods_arr_rel_insert_input!) {
-  insert_orders_one(object: { user_id: $userId, order_foods: $orderFoods }) {
-    created_at
-  }
-}
