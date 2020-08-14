@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useQuery } from '@apollo/client';
-import { MenuDocument } from './index.graphql';
+import { GetFoodCategoriesDocument } from './index.graphql';
 import { LoadingView } from 'components/LoadingView';
 import { StackParamList } from 'types/navigation';
 import { FoodCategoryImageBackground } from 'components/FoodCategoryImageBackground';
@@ -17,7 +17,7 @@ type NavigationProp = {
 
 export const Menu = () => {
   const { navigate } = useNavigation<NavigationProp['navigation']>();
-  const { data, loading } = useQuery(MenuDocument);
+  const { data, loading } = useQuery(GetFoodCategoriesDocument);
   const handlePressCategory = useCallback(
     (uuid: string) => {
       const foodCategory = data?.food_categories.find((category) => category.uuid === uuid);

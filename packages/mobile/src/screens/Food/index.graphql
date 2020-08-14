@@ -10,3 +10,18 @@ query getFoodByUuid($uuid: uuid!) {
     }
   }
 }
+
+mutation createCart($userId: String!, $cartFoods: cart_foods_arr_rel_insert_input!) {
+  insert_carts_one(
+    object: { user_id: $userId, cart_foods: $cartFoods }
+    on_conflict: { constraint: carts_user_id_key, update_columns: [] }
+  ) {
+    uuid
+  }
+}
+
+mutation createCartFood($cartUuid: uuid!, $foodUuid: uuid!, $count: Int!) {
+  insert_cart_foods_one(object: { cart_uuid: $cartUuid, food_uuid: $foodUuid, count: $count }) {
+    cart_uuid
+  }
+}
