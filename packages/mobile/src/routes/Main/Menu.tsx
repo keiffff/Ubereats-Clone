@@ -5,10 +5,11 @@ import { ShoppingCartButton } from '../Header/ShoppingCartButton';
 import { Menu } from 'screens/Menu';
 import { Category } from 'screens/Category';
 import { Food } from 'screens/Food';
+import { Cart } from 'screens/Cart';
 import { routes } from 'constants/routes';
 import { StackParamList } from 'types/navigation';
 
-const Stack = createStackNavigator<Pick<StackParamList, 'MENU' | 'CATEGORY' | 'FOOD'>>();
+const Stack = createStackNavigator<Pick<StackParamList, 'MENU' | 'CATEGORY' | 'FOOD' | 'CART'>>();
 
 export const MenuNavigator = () => (
   <Stack.Navigator>
@@ -40,6 +41,16 @@ export const MenuNavigator = () => (
         headerTitleAlign: 'center',
         headerTintColor: '#000000',
       })}
+    />
+    <Stack.Screen
+      name={routes.cart}
+      component={Cart}
+      options={{
+        title: 'Your Cart',
+        headerTitleAlign: 'center',
+        headerBackTitle: 'Back',
+        headerTintColor: '#000000',
+      }}
     />
   </Stack.Navigator>
 );

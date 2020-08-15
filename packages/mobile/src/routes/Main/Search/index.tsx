@@ -6,11 +6,12 @@ import { SearchTextInput } from '../../Header/SearchTextInput';
 import { ShoppingCartButton } from '../../Header/ShoppingCartButton';
 import { Search } from 'screens/Search';
 import { Food } from 'screens/Food';
+import { Cart } from 'screens/Cart';
 import { routes } from 'constants/routes';
 import { SearchFoodsByTextDocument } from './index.graphql';
 import { StackParamList } from 'types/navigation';
 
-const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD'>>();
+const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD' | 'CART'>>();
 
 export const SearchNavigator = () => {
   const [searchText, setSearchText] = useState('');
@@ -50,6 +51,16 @@ export const SearchNavigator = () => {
           headerTitleAlign: 'center',
           headerTintColor: '#000000',
         })}
+      />
+      <Stack.Screen
+        name={routes.cart}
+        component={Cart}
+        options={{
+          title: 'Your Cart',
+          headerTitleAlign: 'center',
+          headerBackTitle: 'Back',
+          headerTintColor: '#000000',
+        }}
       />
     </Stack.Navigator>
   );
