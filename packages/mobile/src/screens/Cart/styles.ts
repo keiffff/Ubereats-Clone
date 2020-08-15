@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
   cartFoodInfo: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   cartFoodCount: {
     borderWidth: 1,
@@ -33,6 +34,8 @@ export const styles = StyleSheet.create({
   },
   cartFoodNameText: {
     fontSize: 16,
+    flex: 1,
+    marginRight: 16,
   },
   cartFoodPriceText: {
     fontSize: 16,

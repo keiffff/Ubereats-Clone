@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { ScrollView, View, Text, ActivityIndicator } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useQuery, useMutation } from '@apollo/client';
 import { StackParamList } from 'types/navigation';
 import { GetFoodByUuidDocument, CreateCartDocument, CreateCartFoodDocument } from './index.graphql';
@@ -11,14 +12,17 @@ import { LoadingView } from 'components/LoadingView';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useCurrentUser } from 'providers/CurrentUser';
 import { useCurrentCart } from 'providers/CurrentCart';
+import { routes } from 'constants/routes';
 
 type NavigationProp = {
+  navigation: StackNavigationProp<StackParamList, 'CART'>;
   route: RouteProp<StackParamList, 'FOOD'>;
 };
 
 const MAX_COUNT_TO_ADD_TO_CART = 99;
 
 export const Food = () => {
+  const { navigate } = useNavigation<NavigationProp['navigation']>();
   const { params } = useRoute<NavigationProp['route']>();
   const { userId } = useCurrentUser();
   const { cartUuid } = useCurrentCart();
@@ -31,11 +35,11 @@ export const Food = () => {
   const handlePressIncrement = useCallback(() => setCount((prev) => prev + 1), []);
   const handlePressDecrement = useCallback(() => setCount((prev) => prev - 1), []);
   const totalPrice = useMemo(() => count * (data?.foods_by_pk?.price ?? 0), [count, data?.foods_by_pk?.price]);
-  const handlePressAddToCart = useCallback(() => {
+  const handlePressAddToCart = useCallback(async () => {
     if (!data?.foods_by_pk?.uuid || !count) return;
     const foodUuid = data.foods_by_pk.uuid;
     if (cartUuid) {
-      createCartFood({
+      await createCartFood({
         variables: {
           cartUuid,
           foodUuid,
@@ -43,7 +47,7 @@ export const Food = () => {
         },
       });
     } else {
-      createCart({
+      await createCart({
         variables: {
           userId,
           cartFoods: {
@@ -52,7 +56,8 @@ export const Food = () => {
         },
       });
     }
-  }, [data?.foods_by_pk, count, createCart, userId, cartUuid, createCartFood]);
+    navigate(routes.cart);
+  }, [data?.foods_by_pk, count, createCart, userId, cartUuid, createCartFood, navigate]);
 
   return getFoodByUuidLoading || !data?.foods_by_pk ? (
     <LoadingView />

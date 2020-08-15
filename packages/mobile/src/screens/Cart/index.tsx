@@ -19,7 +19,9 @@ export const Cart = () => {
                 <View style={styles.cartFoodCount}>
                   <Text style={styles.cartFoodCountText}>{count}</Text>
                 </View>
-                <Text style={styles.cartFoodNameText}>{food.name}</Text>
+                <Text style={styles.cartFoodNameText} numberOfLines={1}>
+                  {food.name}
+                </Text>
               </View>
               <Text style={styles.cartFoodPriceText}>${food.price}</Text>
             </View>
