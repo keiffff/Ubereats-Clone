@@ -1,4 +1,4 @@
-query getCartByUserId($userId: String!) {
+subscription getCartByUserId($userId: String!) {
   carts(where: { user_id: { _eq: $userId } }) {
     uuid
     cart_foods {

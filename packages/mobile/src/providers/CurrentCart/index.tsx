@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext } from 'react';
-import { useQuery } from '@apollo/client';
+import { useSubscription } from '@apollo/client';
 import { GetCartByUserIdDocument } from './index.graphql';
 import { useContext } from 'hooks/useContext';
 import { useAuth } from 'providers/Auth';
@@ -22,7 +22,9 @@ export function useCurrentCart() {
 
 export const CurrentCartProvider = ({ children }: Props) => {
   const { currentUserId } = useAuth();
-  const { data, loading } = useQuery(GetCartByUserIdDocument, { variables: { userId: currentUserId } });
+  const { data, loading } = useSubscription(GetCartByUserIdDocument, {
+    variables: { userId: currentUserId },
+  });
 
   return loading || !data ? (
     <LoadingView />
