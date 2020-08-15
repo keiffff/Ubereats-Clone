@@ -1,20 +1,37 @@
 import { StyleSheet } from 'react-native';
+import { makeCircleStyle } from 'helpers/styles';
 
 export const styles = StyleSheet.create({
   hamburgerButtonContainer: {
     padding: 10,
   },
   hamburgerButtonImage: {
-    width: 25,
-    height: 25,
+    width: 32,
+    height: 32,
     marginLeft: 6,
   },
   shoppingCartContainer: {
     padding: 10,
+    position: 'relative',
+  },
+  shoppingCartBadge: {
+    position: 'absolute',
+    top: 4,
+    right: 8,
+    ...makeCircleStyle(22),
+    backgroundColor: '#D60F0F',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  shoppingCartBadgeText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#ffffff',
   },
   shoppingCartImage: {
-    width: 25,
-    height: 25,
+    width: 32,
+    height: 32,
     marginRight: 6,
   },
   searchTextInputContainer: {
