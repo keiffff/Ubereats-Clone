@@ -29,8 +29,8 @@ export const CurrentCartProvider = ({ children }: Props) => {
   ) : (
     <CurrentCartContext.Provider
       value={{
-        cartUuid: data.carts[0].uuid,
-        cartFoods: data.carts[0].cart_foods,
+        cartUuid: data.carts[0]?.uuid ?? '',
+        cartFoods: data.carts[0]?.cart_foods ?? [],
       }}
     >
       {children}

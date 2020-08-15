@@ -14,21 +14,6 @@ export const styles = StyleSheet.create({
     padding: 10,
     position: 'relative',
   },
-  shoppingCartBadge: {
-    position: 'absolute',
-    top: 4,
-    right: 8,
-    ...makeCircleStyle(22),
-    backgroundColor: '#D60F0F',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
-  },
-  shoppingCartBadgeText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#ffffff',
-  },
   shoppingCartImage: {
     width: 32,
     height: 32,

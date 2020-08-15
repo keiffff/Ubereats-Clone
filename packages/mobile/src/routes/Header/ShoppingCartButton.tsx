@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { TouchableOpacity, Image, View, Text } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import { styles } from './styles';
+import { Badge } from 'components/Badge';
 import { useCurrentCart } from 'providers/CurrentCart';
 
 export const ShoppingCartButton = () => {
@@ -9,9 +10,7 @@ export const ShoppingCartButton = () => {
 
   return (
     <TouchableOpacity style={styles.shoppingCartContainer}>
-      <View style={styles.shoppingCartBadge}>
-        <Text style={styles.shoppingCartBadgeText}>{cartFoodCount}</Text>
-      </View>
+      <Badge count={cartFoodCount} minCount={1} maxCount={99} />
       <Image source={require('assets/cart-icon.png')} style={styles.shoppingCartImage} />
     </TouchableOpacity>
   );
