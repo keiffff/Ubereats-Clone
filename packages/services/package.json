@@ -1,0 +1,32 @@
+{
+  "name": "services",
+  "version": "1.0.0",
+  "author": "Kei Fujikawa",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "webpack --watch & nodemon ./dist/index.js --develop",
+    "build": "webpack",
+    "codegen": "graphql-codegen -r dotenv/config"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.17.8",
+    "@graphql-codegen/typed-document-node": "^1.17.9",
+    "@graphql-codegen/typescript": "^1.17.8",
+    "@graphql-codegen/typescript-operations": "^1.17.8",
+    "@graphql-codegen/typescript-resolvers": "^1.17.8",
+    "@graphql-typed-document-node/core": "^3.0.0",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^14.0.27",
+    "nodemon": "^2.0.4",
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-node-externals": "^2.5.1"
+  },
+  "dependencies": {
+    "apollo-server": "^2.16.1",
+    "graphql": "^15.3.0"
+  }
+}
