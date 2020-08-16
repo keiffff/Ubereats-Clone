@@ -10,17 +10,20 @@ import { Cart } from 'screens/Cart';
 import { routes } from 'constants/routes';
 import { SearchFoodsByTextDocument } from './index.graphql';
 import { StackParamList } from 'types/navigation';
+import { useErrorFeedback } from 'hooks/useErrorFeedback';
 
 const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD' | 'CART'>>();
 
 export const SearchNavigator = () => {
   const [searchText, setSearchText] = useState('');
-  const [searchFoodsByText, { loading, data }] = useLazyQuery(SearchFoodsByTextDocument);
+  const [searchFoodsByText, { loading, data, error }] = useLazyQuery(SearchFoodsByTextDocument);
   const handleChangeSearchText = useCallback((value: string) => setSearchText(value), []);
   const handleClearSearchText = useCallback(() => setSearchText(''), []);
   const handleSubmit = useCallback(() => {
     searchFoodsByText({ variables: { searchText } });
   }, [searchText, searchFoodsByText]);
+
+  useErrorFeedback({ message: 'failed to search', enabled: !!error });
 
   return (
     <Stack.Navigator>

@@ -11,6 +11,7 @@ import { StackParamList } from 'types/navigation';
 import { styles } from './styles';
 import { LoadingView } from 'components/LoadingView';
 import { routes } from 'constants/routes';
+import { useErrorFeedback } from 'hooks/useErrorFeedback';
 
 type NavigationProp = {
   navigation: StackNavigationProp<StackParamList, 'CATEGORY' | 'FOOD'>;
@@ -18,7 +19,7 @@ type NavigationProp = {
 
 export const Home = () => {
   const { navigate } = useNavigation<NavigationProp['navigation']>();
-  const { data, loading } = useQuery(GetFoodCategoriesAndOrderFoodsDocument);
+  const { data, loading, error } = useQuery(GetFoodCategoriesAndOrderFoodsDocument);
   const handlePressCategory = useCallback(
     (uuid: string) => {
       const foodCategory = data?.food_categories.find((category) => category.uuid === uuid);
@@ -35,6 +36,8 @@ export const Home = () => {
     },
     [navigate, data?.order_foods],
   );
+
+  useErrorFeedback({ message: 'failed to load food info', enabled: !!error });
 
   return loading || !data ? (
     <LoadingView />

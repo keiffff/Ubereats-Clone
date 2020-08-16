@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { ScrollView, View, Text, ActivityIndicator } from 'react-native';
+import { ScrollView, View, Text, ActivityIndicator, Alert } from 'react-native';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useQuery, useMutation } from '@apollo/client';
@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useCurrentUser } from 'providers/CurrentUser';
 import { useCurrentCart } from 'providers/CurrentCart';
 import { routes } from 'constants/routes';
+import { useErrorFeedback } from 'hooks/useErrorFeedback';
 
 type NavigationProp = {
   navigation: StackNavigationProp<StackParamList, 'CART'>;
@@ -26,7 +27,7 @@ export const Food = () => {
   const { params } = useRoute<NavigationProp['route']>();
   const { userId } = useCurrentUser();
   const { cartUuid } = useCurrentCart();
-  const { loading: getFoodByUuidLoading, data } = useQuery(GetFoodByUuidDocument, {
+  const { loading: getFoodByUuidLoading, data, error } = useQuery(GetFoodByUuidDocument, {
     variables: { uuid: params.foodUuid },
   });
   const [createCart, { loading: createCartLoading }] = useMutation(CreateCartDocument);
@@ -38,26 +39,32 @@ export const Food = () => {
   const handlePressAddToCart = useCallback(async () => {
     if (!data?.foods_by_pk?.uuid || !count) return;
     const foodUuid = data.foods_by_pk.uuid;
-    if (cartUuid) {
-      await createCartFood({
-        variables: {
-          cartUuid,
-          foodUuid,
-          count,
-        },
-      });
-    } else {
-      await createCart({
-        variables: {
-          userId,
-          cartFoods: {
-            data: [{ food_uuid: foodUuid, count }],
+    try {
+      if (cartUuid) {
+        await createCartFood({
+          variables: {
+            cartUuid,
+            foodUuid,
+            count,
           },
-        },
-      });
+        });
+      } else {
+        await createCart({
+          variables: {
+            userId,
+            cartFoods: {
+              data: [{ food_uuid: foodUuid, count }],
+            },
+          },
+        });
+      }
+    } catch {
+      Alert.alert('Error', 'failed to add to cart');
     }
     navigate(routes.cart);
   }, [data?.foods_by_pk, count, createCart, userId, cartUuid, createCartFood, navigate]);
+
+  useErrorFeedback({ message: 'failed to load food info', enabled: !!error });
 
   return getFoodByUuidLoading || !data?.foods_by_pk ? (
     <LoadingView />

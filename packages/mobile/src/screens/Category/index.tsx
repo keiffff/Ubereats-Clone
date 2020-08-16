@@ -8,6 +8,7 @@ import { FoodsList } from 'components/FoodsList';
 import { LoadingView } from 'components/LoadingView';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { routes } from 'constants/routes';
+import { useErrorFeedback } from 'hooks/useErrorFeedback';
 
 type NavigationProp = {
   navigation: StackNavigationProp<StackParamList, 'FOOD'>;
@@ -17,7 +18,7 @@ type NavigationProp = {
 export const Category = () => {
   const { navigate } = useNavigation<NavigationProp['navigation']>();
   const { params } = useRoute<NavigationProp['route']>();
-  const { loading, data } = useQuery(GetFoodsByCategoryUuidDocument, {
+  const { loading, data, error } = useQuery(GetFoodsByCategoryUuidDocument, {
     variables: { categoryUuid: params.categoryUuid },
   });
   const handlePressFood = useCallback(
@@ -28,6 +29,8 @@ export const Category = () => {
     },
     [navigate, data?.foods],
   );
+
+  useErrorFeedback({ message: 'failed to load food list', enabled: !!error });
 
   return loading || !data ? (
     <LoadingView />

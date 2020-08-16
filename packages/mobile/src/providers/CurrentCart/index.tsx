@@ -2,6 +2,7 @@ import React, { ReactNode, createContext } from 'react';
 import { useSubscription } from '@apollo/client';
 import { GetCartByUserIdDocument } from './index.graphql';
 import { useContext } from 'hooks/useContext';
+import { useErrorFeedback } from 'hooks/useErrorFeedback';
 import { useAuth } from 'providers/Auth';
 import { LoadingView } from 'components/LoadingView';
 
@@ -22,9 +23,11 @@ export function useCurrentCart() {
 
 export const CurrentCartProvider = ({ children }: Props) => {
   const { currentUserId } = useAuth();
-  const { data, loading } = useSubscription(GetCartByUserIdDocument, {
+  const { data, loading, error } = useSubscription(GetCartByUserIdDocument, {
     variables: { userId: currentUserId },
   });
+
+  useErrorFeedback({ message: 'failed to load cart info', enabled: !!error });
 
   return loading || !data ? (
     <LoadingView />

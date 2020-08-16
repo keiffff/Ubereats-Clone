@@ -4,6 +4,7 @@ import { GetUserByIdDocument } from './index.graphql';
 import { useContext } from 'hooks/useContext';
 import { useAuth } from 'providers/Auth';
 import { LoadingView } from 'components/LoadingView';
+import { useErrorFeedback } from 'hooks/useErrorFeedback';
 
 type CurrentUserProviderContext = {
   userId: string;
@@ -24,7 +25,9 @@ export function useCurrentUser() {
 
 export const CurrentUserProvider = ({ children }: Props) => {
   const { currentUserId } = useAuth();
-  const { data, loading } = useQuery(GetUserByIdDocument, { variables: { id: currentUserId } });
+  const { data, loading, error } = useQuery(GetUserByIdDocument, { variables: { id: currentUserId } });
+
+  useErrorFeedback({ message: 'failed to load user', enabled: !!error });
 
   return loading || !data ? (
     <LoadingView />

@@ -10,6 +10,7 @@ import { FoodCategoryImageBackground } from 'components/FoodCategoryImageBackgro
 import { styles } from './styles';
 import { windowProps } from 'constants/dimensions';
 import { routes } from 'constants/routes';
+import { useErrorFeedback } from 'hooks/useErrorFeedback';
 
 type NavigationProp = {
   navigation: StackNavigationProp<StackParamList, 'CATEGORY'>;
@@ -17,7 +18,7 @@ type NavigationProp = {
 
 export const Menu = () => {
   const { navigate } = useNavigation<NavigationProp['navigation']>();
-  const { data, loading } = useQuery(GetFoodCategoriesDocument);
+  const { data, loading, error } = useQuery(GetFoodCategoriesDocument);
   const handlePressCategory = useCallback(
     (uuid: string) => {
       const foodCategory = data?.food_categories.find((category) => category.uuid === uuid);
@@ -27,6 +28,8 @@ export const Menu = () => {
     [navigate, data?.food_categories],
   );
   const foodCategoryItemWidth = windowProps.width / 2 - 24;
+
+  useErrorFeedback({ message: 'failed to load food info', enabled: !!error });
 
   return loading || !data ? (
     <LoadingView />
