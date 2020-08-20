@@ -5,9 +5,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "webpack --watch & nodemon ./dist/index.js --develop",
+    "start": "webpack --watch & nodemon ./dist/index.js",
     "build": "webpack",
-    "codegen": "graphql-codegen -r dotenv/config"
+    "codegen": "graphql-codegen -r dotenv/config",
+    "deploy": "yarn build && vercel --prod"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.8",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "apollo-server": "^2.16.1",
-    "graphql": "^15.3.0"
+    "graphql": "^15.3.0",
+    "graphql-tools": "^6.0.18"
   }
 }
