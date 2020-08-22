@@ -1,1 +1,5 @@
-[]
+- name: services
+  definition:
+    url_from_env: SERVICES_GRAPHQL_ENDPOINT
+    timeout_seconds: 60
+    forward_client_headers: true

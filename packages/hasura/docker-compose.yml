@@ -17,5 +17,6 @@ services:
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'false'
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      SERVICES_GRAPHQL_ENDPOINT: ${SERVICES_GRAPHQL_ENDPOINT}
 volumes:
   db_data:
