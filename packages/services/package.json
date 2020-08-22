@@ -7,8 +7,7 @@
   "scripts": {
     "start": "webpack --watch & nodemon ./dist/index.js",
     "build": "webpack",
-    "codegen": "graphql-codegen -r dotenv/config",
-    "deploy": "yarn build && vercel --prod"
+    "codegen": "graphql-codegen -r dotenv/config"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.8",
