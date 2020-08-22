@@ -9,6 +9,7 @@ module.exports = {
     },
     './src/modules/*/index.ts',
   ],
+  documents: './src/**/*.graphql',
   overwrite: true,
   config: {
     scalars: {
