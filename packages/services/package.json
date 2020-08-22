@@ -27,6 +27,7 @@
     "webpack-node-externals": "^2.5.1"
   },
   "dependencies": {
+    "@graphql-modules/core": "^0.7.17",
     "apollo-server": "^2.16.1",
     "graphql": "^15.3.0",
     "graphql-tools": "^6.0.18"
