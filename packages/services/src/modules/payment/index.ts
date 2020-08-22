@@ -4,19 +4,24 @@ import { Resolvers } from 'types/graphql';
 import commonModule from 'modules/common';
 
 const typeDefs = gql`
-  extend type Query {
-    hello: String
+  type orderOutPut {
+    publishableKey: String!
+    clientSecret: String!
+  }
+
+  extend type Mutation {
+    orderPayment: orderOutPut!
   }
 `;
 
 const resolvers: Resolvers = {
-  Query: {
-    hello: () => 'world',
+  Mutation: {
+    orderPayment: () => ({ publishableKey: '', clientSecret: '' }),
   },
 };
 
 export default new GraphQLModule({
-  name: 'hello',
+  name: 'payment',
   typeDefs,
   resolvers,
   imports: () => [commonModule],

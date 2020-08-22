@@ -1,10 +1,10 @@
 import { ApolloServer } from 'apollo-server';
 import { GraphQLModule } from '@graphql-modules/core';
-import helloModule from 'modules/hello';
+import { helloModule, paymentModule } from 'modules';
 
 const rootModule = new GraphQLModule({
   name: 'root',
-  imports: [helloModule],
+  imports: [helloModule, paymentModule],
 });
 
 const server = new ApolloServer({ schema: rootModule.schema, introspection: true, playground: true });
