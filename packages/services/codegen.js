@@ -26,6 +26,7 @@ module.exports = {
         },
         enumsAsTypes: true,
         useIndexSignature: true,
+        contextType: './context#Context',
       },
     },
   },

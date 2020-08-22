@@ -16,7 +16,9 @@ const typeDefs = gql`
 
 const resolvers: Resolvers = {
   Mutation: {
-    orderPayment: () => ({ publishableKey: '', clientSecret: '' }),
+    orderPayment(root, args, { injector }) {
+      return { publishableKey: '', clientSecret: '' };
+    },
   },
 };
 
