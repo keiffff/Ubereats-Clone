@@ -1,3 +1,4 @@
+const NodemonWebpackPlugin = require('nodemon-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const { argv } = require('yargs');
@@ -20,6 +21,7 @@ module.exports = {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.ts', '.js'],
   },
+  plugins: [new NodemonWebpackPlugin()],
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
