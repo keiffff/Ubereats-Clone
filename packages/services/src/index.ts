@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server';
 import { GraphQLModule } from '@graphql-modules/core';
 import { helloModule, paymentModule } from 'modules';

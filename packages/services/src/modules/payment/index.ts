@@ -2,6 +2,7 @@ import { gql } from 'apollo-server';
 import { GraphQLModule } from '@graphql-modules/core';
 import { Resolvers } from 'types/graphql';
 import commonModule from 'modules/common';
+import { PaymentProvider } from './provider';
 
 const typeDefs = gql`
   type orderOutPut {
@@ -17,7 +18,7 @@ const typeDefs = gql`
 const resolvers: Resolvers = {
   Mutation: {
     orderPayment(root, args, { injector }) {
-      return { publishableKey: '', clientSecret: '' };
+      return injector.get(PaymentProvider).createPaymentIntent();
     },
   },
 };
@@ -27,4 +28,5 @@ export default new GraphQLModule({
   typeDefs,
   resolvers,
   imports: () => [commonModule],
+  providers: () => [PaymentProvider],
 });
