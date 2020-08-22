@@ -7,7 +7,7 @@ module.exports = {
         },
       },
     },
-    './src/index.ts',
+    './src/modules/*/index.ts',
   ],
   overwrite: true,
   config: {
