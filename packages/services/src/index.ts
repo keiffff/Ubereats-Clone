@@ -9,10 +9,9 @@ const app = createApplication({
 
 const server = new ApolloServer({
   schema: app.createSchemaForApollo(),
+  context: (session) => session,
   introspection: true,
   playground: true,
-  context: (session) => session,
-  executor: app.createExecution(),
 });
 
 server.listen({ port: process.env.PORT ?? 4000 }).then(({ url }) => console.log(`🚀Server ready at ${url}`));
