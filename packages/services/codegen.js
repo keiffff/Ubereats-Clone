@@ -9,7 +9,7 @@ module.exports = {
     },
     './src/modules/*/index.ts',
   ],
-  documents: './src/**/*.graphql',
+  documents: './src/**/*.ts',
   overwrite: true,
   config: {
     scalars: {
