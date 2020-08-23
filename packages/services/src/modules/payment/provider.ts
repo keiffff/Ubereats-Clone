@@ -7,6 +7,8 @@ import { GetCartByUserIdQuery, GetCartByUserIdQueryVariables } from 'types/graph
 
 const stripe = new Stripe(environment.stripeSecretKey, { apiVersion: '2020-03-02' });
 
+const JPY_PER_USD = 100;
+
 const GET_CART_BY_USER_ID_DOCUMENT = gql`
   query getCartByUserId($userId: String!) {
     carts(where: { user_id: { _eq: $userId } }) {
@@ -31,10 +33,10 @@ export class PaymentProvider {
         userId,
       },
     );
-    const totalPrice = carts[0].cart_foods.reduce((acc, { food, count }) => acc + food.price * count, 0);
+    const totalPrice = carts[0].cart_foods.reduce((acc, { food, count }) => acc + food.price * count, 0) * JPY_PER_USD;
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalPrice,
-      currency: 'USD',
+      currency: 'JPY',
     });
     return { publishableKey: environment.stripeSecretKey, clientSecret: paymentIntent.client_secret ?? '' };
   }
