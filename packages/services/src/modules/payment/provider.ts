@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import { Injectable, Scope } from 'graphql-modules';
+import { Injectable } from 'graphql-modules';
 import { gql } from 'graphql-request';
 import { environment } from 'constants/environment';
 import { hasuraClient } from 'graphqlClient';
@@ -22,9 +22,7 @@ const GET_CART_BY_USER_ID_DOCUMENT = gql`
   }
 `;
 
-@Injectable({
-  scope: Scope.Operation,
-})
+@Injectable()
 export class PaymentProvider {
   async createPaymentIntent() {
     const data = await hasuraClient.request<GetCartByUserIdQuery, GetCartByUserIdQueryVariables>(
@@ -33,7 +31,6 @@ export class PaymentProvider {
         userId: 'google-oauth2|116031656602944320296',
       },
     );
-    console.log(data);
     return { publishableKey: environment.stripeSecretKey, clientSecret: '' };
   }
 }

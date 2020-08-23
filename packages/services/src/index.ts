@@ -1,16 +1,17 @@
 import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server';
 import { createApplication } from 'graphql-modules';
-import { commonModule, helloModule, paymentModule } from 'modules';
+import { commonModule, paymentModule } from 'modules';
 
 const app = createApplication({
-  modules: [commonModule, helloModule, paymentModule],
+  modules: [commonModule, paymentModule],
 });
 
 const server = new ApolloServer({
-  schema: app.schema,
+  schema: app.createSchemaForApollo(),
   introspection: true,
   playground: true,
+  context: (session) => session,
   executor: app.createExecution(),
 });
 

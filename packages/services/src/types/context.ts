@@ -1,1 +1,1 @@
-export type Context = GraphQLModules.Context;
+export type Context = GraphQLModules.Context & { req: Express.Request };
