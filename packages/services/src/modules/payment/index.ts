@@ -1,6 +1,7 @@
 import { createModule, gql } from 'graphql-modules';
 import { Resolvers } from 'types/graphql';
 import { PaymentProvider } from './provider';
+import { getUserIdFromAuthHeader } from 'helpers/getUserIdFromAuthHeader';
 
 const typeDefs = gql`
   type orderOutPut {
@@ -15,8 +16,9 @@ const typeDefs = gql`
 
 const resolvers: Resolvers = {
   Mutation: {
-    orderPayment(root, args, { injector }) {
-      return injector.get(PaymentProvider).createPaymentIntent();
+    async orderPayment(root, args, { injector, req }) {
+      const userId = getUserIdFromAuthHeader(req.headers.authorization ?? '');
+      return await injector.get(PaymentProvider).createPaymentIntent(userId);
     },
   },
 };

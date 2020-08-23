@@ -9,7 +9,7 @@ const app = createApplication({
 
 const server = new ApolloServer({
   schema: app.createSchemaForApollo(),
-  context: (session) => session,
+  context: ({ req }) => ({ req }),
   introspection: true,
   playground: true,
 });

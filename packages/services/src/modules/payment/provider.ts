@@ -24,13 +24,18 @@ const GET_CART_BY_USER_ID_DOCUMENT = gql`
 
 @Injectable()
 export class PaymentProvider {
-  async createPaymentIntent() {
-    const data = await hasuraClient.request<GetCartByUserIdQuery, GetCartByUserIdQueryVariables>(
+  async createPaymentIntent(userId: string) {
+    const { carts } = await hasuraClient.request<GetCartByUserIdQuery, GetCartByUserIdQueryVariables>(
       GET_CART_BY_USER_ID_DOCUMENT,
       {
-        userId: 'google-oauth2|116031656602944320296',
+        userId,
       },
     );
-    return { publishableKey: environment.stripeSecretKey, clientSecret: '' };
+    const totalPrice = carts[0].cart_foods.reduce((acc, { food, count }) => acc + food.price * count, 0);
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: totalPrice,
+      currency: 'USD',
+    });
+    return { publishableKey: environment.stripeSecretKey, clientSecret: paymentIntent.client_secret ?? '' };
   }
 }
