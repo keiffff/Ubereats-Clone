@@ -1,7 +1,5 @@
-import { gql } from 'apollo-server';
-import { GraphQLModule } from '@graphql-modules/core';
+import { createModule, gql } from 'graphql-modules';
 import { Resolvers } from 'types/graphql';
-import commonModule from 'modules/common';
 
 const typeDefs = gql`
   extend type Query {
@@ -15,9 +13,8 @@ const resolvers: Resolvers = {
   },
 };
 
-export default new GraphQLModule({
-  name: 'hello',
+export const helloModule = createModule({
+  id: 'hello',
   typeDefs,
   resolvers,
-  imports: () => [commonModule],
 });

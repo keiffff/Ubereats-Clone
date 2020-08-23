@@ -1,7 +1,5 @@
-import { gql } from 'apollo-server';
-import { GraphQLModule } from '@graphql-modules/core';
+import { createModule, gql } from 'graphql-modules';
 import { Resolvers } from 'types/graphql';
-import commonModule from 'modules/common';
 import { PaymentProvider } from './provider';
 
 const typeDefs = gql`
@@ -23,10 +21,9 @@ const resolvers: Resolvers = {
   },
 };
 
-export default new GraphQLModule({
-  name: 'payment',
+export const paymentModule = createModule({
+  id: 'payment',
   typeDefs,
   resolvers,
-  imports: () => [commonModule],
-  providers: () => [PaymentProvider],
+  providers: [PaymentProvider],
 });

@@ -1,5 +1,5 @@
 # auto-generated
 introspection.json
-*graphql*.ts
+src/types/graphql.ts
 
 .vercel

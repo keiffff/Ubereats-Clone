@@ -1,4 +1,5 @@
-import helloModule from './hello/';
-import paymentModule from './payment';
+import { commonModule } from './common';
+import { helloModule } from './hello';
+import { paymentModule } from './payment';
 
-export { helloModule, paymentModule };
+export { commonModule, helloModule, paymentModule };
