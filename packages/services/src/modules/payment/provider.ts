@@ -34,9 +34,22 @@ export class PaymentProvider {
       },
     );
     const totalPrice = carts[0].cart_foods.reduce((acc, { food, count }) => acc + food.price * count, 0) * JPY_PER_USD;
+    // example payment method
+    const paymentMethod = await stripe.paymentMethods.create({
+      type: 'card',
+      card: {
+        number: '4242424242424242',
+        exp_month: 8,
+        exp_year: 2021,
+        cvc: '314',
+      },
+    });
     const paymentIntent = await stripe.paymentIntents.create({
+      payment_method: paymentMethod.id,
       amount: totalPrice,
       currency: 'JPY',
+      confirmation_method: 'manual',
+      confirm: true,
     });
     return { publishableKey: environment.stripeSecretKey, clientSecret: paymentIntent.client_secret ?? '' };
   }
