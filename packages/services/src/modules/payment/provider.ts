@@ -19,6 +19,8 @@ type OrderFood = {
 
 const stripe = new Stripe(environment.stripeSecretKey, { apiVersion: '2020-03-02' });
 
+const JPY_PER_USD = 100;
+
 const EXAMPLE_CARD_INFO = {
   number: '4242424242424242',
   exp_month: 8,
@@ -69,8 +71,17 @@ export class PaymentProvider {
     if (!carts[0] || !carts[0].cart_foods.length) {
       throw new Error('You have no cart or no foods in cart!');
     }
+    const items = carts[0].cart_foods;
+    const totalPrice = items.reduce((acc, { food, count }) => acc + food.price * count, 0) * JPY_PER_USD;
 
-    return { cartUuid: carts[0].uuid, cartItems: carts[0].cart_foods };
+    return {
+      cartUuid: carts[0].uuid,
+      cartItems: items.map(({ count, food }) => ({
+        count,
+        foodUuid: food.uuid,
+      })),
+      totalPrice,
+    };
   }
 
   async createPayment({ totalPrice }: { totalPrice: number }) {

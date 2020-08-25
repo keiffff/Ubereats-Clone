@@ -3,8 +3,6 @@ import { Resolvers } from 'types/graphql';
 import { PaymentProvider } from './provider';
 import { getUserIdFromAuthHeader } from 'helpers/getUserIdFromAuthHeader';
 
-const JPY_PER_USD = 100;
-
 const typeDefs = gql`
   type orderOutPut {
     orderUuid: String!
@@ -20,15 +18,9 @@ const resolvers: Resolvers = {
   Mutation: {
     async orderPayment(root, args, { injector, req }) {
       const userId = getUserIdFromAuthHeader(req.headers.authorization ?? '') ?? '';
-      const { cartUuid, cartItems } = await injector.get(PaymentProvider).getCurrentCartItems(userId);
-      const totalPrice = cartItems.reduce((acc, { food, count }) => acc + food.price * count, 0) * JPY_PER_USD;
+      const { cartUuid, cartItems, totalPrice } = await injector.get(PaymentProvider).getCurrentCartItems(userId);
       await injector.get(PaymentProvider).createPayment({ totalPrice });
-      const createOrderResponse = await injector.get(PaymentProvider).createOrder(userId, {
-        orderFoods: cartItems.map(({ count, food }) => ({
-          count,
-          foodUuid: food.uuid,
-        })),
-      });
+      const createOrderResponse = await injector.get(PaymentProvider).createOrder(userId, { orderFoods: cartItems });
       injector.get(PaymentProvider).removeCartItems(cartUuid);
 
       return createOrderResponse;
