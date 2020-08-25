@@ -1,0 +1,6 @@
+mutation orderPayment {
+  orderPayment {
+    orderStatus
+    orderUuid
+  }
+}

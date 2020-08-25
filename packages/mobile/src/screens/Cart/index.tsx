@@ -1,13 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { useMutation } from '@apollo/client';
+import { OrderPaymentDocument } from './index.graphql';
 import { styles } from './styles';
 import { useCurrentCart } from 'providers/CurrentCart';
 
 export const Cart = () => {
   const { cartFoods } = useCurrentCart();
+  const [orderPayment, { loading }] = useMutation(OrderPaymentDocument);
   const totalPrice = useMemo(() => cartFoods.reduce((acc, { food, count }) => acc + food.price * count, 0), [
     cartFoods,
   ]);
+  const handlePressPlaceOrder = useCallback(() => orderPayment(), [orderPayment]);
 
   return (
     <>
@@ -32,7 +36,11 @@ export const Cart = () => {
           </View>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.placeOrderButton}>
+      <TouchableOpacity
+        style={styles.placeOrderButton}
+        disabled={!cartFoods.length || loading}
+        onPress={handlePressPlaceOrder}
+      >
         <Text style={styles.placeOrderButtonText}>PLACE ORDER</Text>
       </TouchableOpacity>
     </>
