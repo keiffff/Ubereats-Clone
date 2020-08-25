@@ -21,7 +21,7 @@ const resolvers: Resolvers = {
       const { cartUuid, cartItems, totalPrice } = await injector.get(PaymentProvider).getCurrentCartItems(userId);
       await injector.get(PaymentProvider).createPayment({ totalPrice });
       const createOrderResponse = await injector.get(PaymentProvider).createOrder(userId, { orderFoods: cartItems });
-      injector.get(PaymentProvider).removeCartItems(cartUuid);
+      await injector.get(PaymentProvider).removeCartItems(cartUuid);
 
       return createOrderResponse;
     },

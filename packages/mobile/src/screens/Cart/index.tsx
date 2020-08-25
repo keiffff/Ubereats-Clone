@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useMutation } from '@apollo/client';
 import { OrderPaymentDocument } from './index.graphql';
 import { styles } from './styles';
@@ -41,7 +41,11 @@ export const Cart = () => {
         disabled={!cartFoods.length || loading}
         onPress={handlePressPlaceOrder}
       >
-        <Text style={styles.placeOrderButtonText}>PLACE ORDER</Text>
+        {!loading ? (
+          <Text style={styles.placeOrderButtonText}>PLACE ORDER</Text>
+        ) : (
+          <ActivityIndicator color="#ffffff" />
+        )}
       </TouchableOpacity>
     </>
   );
