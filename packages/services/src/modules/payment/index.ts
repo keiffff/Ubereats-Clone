@@ -23,12 +23,14 @@ const resolvers: Resolvers = {
       const items = await injector.get(PaymentProvider).getCurrentCartItems(userId);
       const totalPrice = items.reduce((acc, { food, count }) => acc + food.price * count, 0) * JPY_PER_USD;
       await injector.get(PaymentProvider).createPayment({ totalPrice });
-      return await injector.get(PaymentProvider).createOrder(userId, {
+      const createOrderResponse = await injector.get(PaymentProvider).createOrder(userId, {
         orderFoods: items.map(({ count, food }) => ({
           count,
           foodUuid: food.uuid,
         })),
       });
+
+      return createOrderResponse;
     },
   },
 };

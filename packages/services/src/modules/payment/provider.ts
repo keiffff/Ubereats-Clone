@@ -93,4 +93,6 @@ export class PaymentProvider {
       orderStatus: insert_orders_one?.status ?? 'waiting',
     };
   }
+
+  async removeCartItems(userId: string) {}
 }
