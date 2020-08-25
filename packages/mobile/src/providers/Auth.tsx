@@ -92,6 +92,7 @@ export const AuthProvider = ({ clientId, audience, scope, domain, children }: Pr
   const initialize = useCallback(async () => {
     setLoading(true);
     const storedAccessToken = await getItemAsync(secureStoreKey.accessToken);
+    console.log(storedAccessToken);
     if (storedAccessToken) {
       const { userId, exp } = decodeAuthToken(storedAccessToken);
       if (exp > Math.floor(new Date().getTime() / 1000)) {
