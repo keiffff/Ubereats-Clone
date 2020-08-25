@@ -231,6 +231,18 @@
         table:
           schema: public
           name: order_foods
+  event_triggers:
+  - name: order_canceled
+    definition:
+      enable_manual: false
+      update:
+        columns:
+        - status
+    retry_conf:
+      num_retries: 0
+      interval_sec: 10
+      timeout_sec: 60
+    webhook_from_env: SERVICES_ORDER_CANCELED_WEBHOOK_ENDPOINT
 - table:
     schema: public
     name: restaurants

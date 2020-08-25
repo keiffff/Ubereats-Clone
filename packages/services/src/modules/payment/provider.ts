@@ -1,8 +1,7 @@
-import Stripe from 'stripe';
 import { Injectable } from 'graphql-modules';
 import { gql } from 'graphql-request';
-import { environment } from 'constants/environment';
-import { hasuraClient } from 'graphqlClient';
+import { stripe } from 'api/stripe';
+import { hasuraClient } from 'api/graphQLClient';
 import {
   GetCartByUserIdQuery,
   GetCartByUserIdQueryVariables,
@@ -16,8 +15,6 @@ type OrderFood = {
   count: number;
   foodUuid: string;
 };
-
-const stripe = new Stripe(environment.stripeSecretKey, { apiVersion: '2020-03-02' });
 
 const JPY_PER_USD = 100;
 
