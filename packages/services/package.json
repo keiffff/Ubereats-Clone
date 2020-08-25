@@ -30,7 +30,8 @@
     "webpack-node-externals": "^2.5.1"
   },
   "dependencies": {
-    "apollo-server": "^2.16.1",
+    "apollo-server-express": "^2.16.1",
+    "express": "^4.17.1",
     "graphql": "^15.3.0",
     "graphql-modules": "^1.0.0-alpha.1",
     "graphql-request": "^3.0.0",

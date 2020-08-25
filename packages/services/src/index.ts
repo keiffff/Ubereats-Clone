@@ -1,17 +1,24 @@
 import 'reflect-metadata';
-import { ApolloServer } from 'apollo-server';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
 import { createApplication } from 'graphql-modules';
 import { commonModule, paymentModule } from 'modules';
 
-const app = createApplication({
+const app = express();
+
+const rootModule = createApplication({
   modules: [commonModule, paymentModule],
 });
 
 const server = new ApolloServer({
-  schema: app.createSchemaForApollo(),
+  schema: rootModule.createSchemaForApollo(),
   context: ({ req }) => ({ req }),
   introspection: true,
   playground: true,
 });
 
-server.listen({ port: process.env.PORT ?? 4000 }).then(({ url }) => console.log(`🚀Server ready at ${url}`));
+server.applyMiddleware({ app });
+
+const port = process.env.PORT ?? 4000;
+
+app.listen({ port }, () => console.log(`🚀Server ready at http://localhost:${port}${server.graphqlPath}`));
