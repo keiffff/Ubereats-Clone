@@ -1,10 +1,8 @@
 import 'reflect-metadata';
-import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { createApplication } from 'graphql-modules';
 import { commonModule, paymentModule } from 'modules';
-
-const app = express();
+import { app } from 'app';
 
 const rootModule = createApplication({
   modules: [commonModule, paymentModule],
