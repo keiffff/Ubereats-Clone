@@ -20,15 +20,16 @@ const resolvers: Resolvers = {
   Mutation: {
     async orderPayment(root, args, { injector, req }) {
       const userId = getUserIdFromAuthHeader(req.headers.authorization ?? '') ?? '';
-      const items = await injector.get(PaymentProvider).getCurrentCartItems(userId);
-      const totalPrice = items.reduce((acc, { food, count }) => acc + food.price * count, 0) * JPY_PER_USD;
+      const { cartUuid, cartItems } = await injector.get(PaymentProvider).getCurrentCartItems(userId);
+      const totalPrice = cartItems.reduce((acc, { food, count }) => acc + food.price * count, 0) * JPY_PER_USD;
       await injector.get(PaymentProvider).createPayment({ totalPrice });
       const createOrderResponse = await injector.get(PaymentProvider).createOrder(userId, {
-        orderFoods: items.map(({ count, food }) => ({
+        orderFoods: cartItems.map(({ count, food }) => ({
           count,
           foodUuid: food.uuid,
         })),
       });
+      injector.get(PaymentProvider).removeCartItems(cartUuid);
 
       return createOrderResponse;
     },

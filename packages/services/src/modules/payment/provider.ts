@@ -8,6 +8,8 @@ import {
   GetCartByUserIdQueryVariables,
   CreateOrderMutation,
   CreateOrderMutationVariables,
+  DeleteCartMutation,
+  DeleteCartMutationVariables,
 } from 'types/graphql';
 
 type OrderFood = {
@@ -49,6 +51,14 @@ const CREATE_ORDER_DOCUMENT = gql`
   }
 `;
 
+const DELETE_CART_DOCUMENT = gql`
+  mutation deleteCart($uuid: uuid!) {
+    delete_carts_by_pk(uuid: $uuid) {
+      uuid
+    }
+  }
+`;
+
 @Injectable()
 export class PaymentProvider {
   async getCurrentCartItems(userId: string) {
@@ -60,7 +70,7 @@ export class PaymentProvider {
       throw new Error('You have no cart or no foods in cart!');
     }
 
-    return carts[0].cart_foods;
+    return { cartUuid: carts[0].uuid, cartItems: carts[0].cart_foods };
   }
 
   async createPayment({ totalPrice }: { totalPrice: number }) {
@@ -94,5 +104,9 @@ export class PaymentProvider {
     };
   }
 
-  async removeCartItems(userId: string) {}
+  async removeCartItems(cartUuid: string) {
+    await hasuraClient.request<DeleteCartMutation, DeleteCartMutationVariables>(DELETE_CART_DOCUMENT, {
+      uuid: cartUuid,
+    });
+  }
 }
