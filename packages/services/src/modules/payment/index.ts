@@ -19,7 +19,7 @@ const resolvers: Resolvers = {
     async orderPayment(root, args, { injector, req }) {
       const userId = getUserIdFromAuthHeader(req.headers.authorization ?? '') ?? '';
       const { cartUuid, cartItems, totalPrice } = await injector.get(PaymentProvider).getCurrentCartItems(userId);
-      await injector.get(PaymentProvider).createPayment({ totalPrice });
+      const { paymentSecret } = await injector.get(PaymentProvider).createPayment({ totalPrice });
       const createOrderResponse = await injector.get(PaymentProvider).createOrder(userId, { orderFoods: cartItems });
       await injector.get(PaymentProvider).removeCartItems(cartUuid);
 

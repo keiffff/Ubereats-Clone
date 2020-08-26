@@ -83,13 +83,15 @@ export class PaymentProvider {
 
   async createPayment({ totalPrice }: { totalPrice: number }) {
     const paymentMethod = await stripe.paymentMethods.create({ type: 'card', card: EXAMPLE_CARD_INFO });
-    await stripe.paymentIntents.create({
+    const { client_secret } = await stripe.paymentIntents.create({
       payment_method: paymentMethod.id,
       amount: totalPrice,
       currency: 'JPY',
       confirmation_method: 'manual',
       confirm: true,
     });
+
+    return { paymentSecret: client_secret };
   }
 
   async createOrder(userId: string, { orderFoods }: { orderFoods: OrderFood[] }) {
