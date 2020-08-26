@@ -42,8 +42,8 @@ const GET_CART_BY_USER_ID_DOCUMENT = gql`
 `;
 
 const CREATE_ORDER_DOCUMENT = gql`
-  mutation createOrder($userId: String!, $orderFoods: order_foods_arr_rel_insert_input!, $paymentSecret: String!) {
-    insert_orders_one(object: { user_id: $userId, order_foods: $orderFoods, payment_secret: $paymentSecret }) {
+  mutation createOrder($userId: String!, $orderFoods: order_foods_arr_rel_insert_input!, $paymentId: String!) {
+    insert_orders_one(object: { user_id: $userId, order_foods: $orderFoods, payment_id: $paymentId }) {
       uuid
       status
     }
@@ -83,7 +83,7 @@ export class PaymentProvider {
 
   async createPayment({ totalPrice }: { totalPrice: number }) {
     const paymentMethod = await stripe.paymentMethods.create({ type: 'card', card: EXAMPLE_CARD_INFO });
-    const { client_secret } = await stripe.paymentIntents.create({
+    const { id } = await stripe.paymentIntents.create({
       payment_method: paymentMethod.id,
       amount: totalPrice,
       currency: 'JPY',
@@ -91,14 +91,10 @@ export class PaymentProvider {
       confirm: true,
     });
 
-    if (!client_secret) {
-      throw new Error('Failed to create payment!');
-    }
-
-    return { paymentSecret: client_secret };
+    return { paymentId: id };
   }
 
-  async createOrder(userId: string, { orderFoods, paymentSecret }: { orderFoods: OrderFood[]; paymentSecret: string }) {
+  async createOrder(userId: string, { orderFoods, paymentId }: { orderFoods: OrderFood[]; paymentId: string }) {
     const { insert_orders_one } = await hasuraClient.request<CreateOrderMutation, CreateOrderMutationVariables>(
       CREATE_ORDER_DOCUMENT,
       {
@@ -109,7 +105,7 @@ export class PaymentProvider {
             food_uuid: foodUuid,
           })),
         },
-        paymentSecret,
+        paymentId,
       },
     );
 

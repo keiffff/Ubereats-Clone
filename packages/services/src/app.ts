@@ -8,7 +8,7 @@ export const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/ping', (req, res) => {
+app.get('/ping', async (req, res) => {
   res.send('OK');
 });
 
@@ -17,8 +17,7 @@ app.post('/order_canceled', async (req, res) => {
   if (event.data.op !== 'UPDATE' || event.data.old.status === 'canceled' || event.data.new.status !== 'canceled')
     return;
 
-  const paymentIntent = await stripe.paymentIntents.retrieve(event.data.new.payment_secret);
-  await stripe.refunds.create({ payment_intent: paymentIntent.id });
+  await stripe.refunds.create({ payment_intent: event.data.new.payment_id });
 
   res.status(200).send({});
 });
