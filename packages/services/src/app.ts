@@ -14,10 +14,12 @@ app.get('/ping', async (req, res) => {
 
 app.post('/order_canceled', async (req, res) => {
   const { event } = req.body;
-  if (event.data.op !== 'UPDATE' || event.data.old.status === 'canceled' || event.data.new.status !== 'canceled')
+  if (event.op !== 'UPDATE' || event.data.old.status === 'canceled' || event.data.new.status !== 'canceled') {
+    res.send('OK');
     return;
+  }
 
   await stripe.refunds.create({ payment_intent: event.data.new.payment_id });
 
-  res.status(200).send({});
+  res.status(204).send({});
 });
