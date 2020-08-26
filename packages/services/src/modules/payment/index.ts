@@ -20,7 +20,9 @@ const resolvers: Resolvers = {
       const userId = getUserIdFromAuthHeader(req.headers.authorization ?? '') ?? '';
       const { cartUuid, cartItems, totalPrice } = await injector.get(PaymentProvider).getCurrentCartItems(userId);
       const { paymentSecret } = await injector.get(PaymentProvider).createPayment({ totalPrice });
-      const createOrderResponse = await injector.get(PaymentProvider).createOrder(userId, { orderFoods: cartItems });
+      const createOrderResponse = await injector
+        .get(PaymentProvider)
+        .createOrder(userId, { orderFoods: cartItems, paymentSecret });
       await injector.get(PaymentProvider).removeCartItems(cartUuid);
 
       return createOrderResponse;

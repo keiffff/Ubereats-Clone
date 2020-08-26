@@ -42,8 +42,8 @@ const GET_CART_BY_USER_ID_DOCUMENT = gql`
 `;
 
 const CREATE_ORDER_DOCUMENT = gql`
-  mutation createOrder($userId: String!, $orderFoods: order_foods_arr_rel_insert_input!) {
-    insert_orders_one(object: { user_id: $userId, order_foods: $orderFoods }) {
+  mutation createOrder($userId: String!, $orderFoods: order_foods_arr_rel_insert_input!, $paymentSecret: String!) {
+    insert_orders_one(object: { user_id: $userId, order_foods: $orderFoods, payment_secret: $paymentSecret }) {
       uuid
       status
     }
@@ -91,10 +91,14 @@ export class PaymentProvider {
       confirm: true,
     });
 
+    if (!client_secret) {
+      throw new Error('Failed to create payment!');
+    }
+
     return { paymentSecret: client_secret };
   }
 
-  async createOrder(userId: string, { orderFoods }: { orderFoods: OrderFood[] }) {
+  async createOrder(userId: string, { orderFoods, paymentSecret }: { orderFoods: OrderFood[]; paymentSecret: string }) {
     const { insert_orders_one } = await hasuraClient.request<CreateOrderMutation, CreateOrderMutationVariables>(
       CREATE_ORDER_DOCUMENT,
       {
@@ -105,6 +109,7 @@ export class PaymentProvider {
             food_uuid: foodUuid,
           })),
         },
+        paymentSecret,
       },
     );
 

@@ -8,7 +8,7 @@
     "start": "webpack --watch --progress --develop",
     "build": "webpack --progress",
     "codegen": "graphql-codegen -r dotenv/config",
-    "deploy": "vercel --prod"
+    "deploy": "yarn build && vercel --prod"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.8",
