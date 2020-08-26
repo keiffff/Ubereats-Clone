@@ -4,8 +4,11 @@ import { useMutation } from '@apollo/client';
 import { OrderPaymentDocument } from './index.graphql';
 import { styles } from './styles';
 import { useCurrentCart } from 'providers/CurrentCart';
+import { PlacingOrderModal } from 'components/PlacingOrderModal';
+import { useCurrentUser } from 'providers/CurrentUser';
 
 export const Cart = () => {
+  const { firstName, lastName } = useCurrentUser();
   const { cartFoods } = useCurrentCart();
   const [orderPayment, { loading }] = useMutation(OrderPaymentDocument);
   const totalPrice = useMemo(() => cartFoods.reduce((acc, { food, count }) => acc + food.price * count, 0), [
@@ -46,6 +49,11 @@ export const Cart = () => {
             </View>
           )}
         </View>
+        <PlacingOrderModal
+          open={loading}
+          orderedUserName={`${firstName} ${lastName}`}
+          orderedItems={cartFoods.map(({ count, food }) => ({ count, name: food.name }))}
+        />
       </ScrollView>
       {cartFoods.length ? (
         <TouchableOpacity style={styles.placeOrderButton} disabled={loading} onPress={handlePressPlaceOrder}>
