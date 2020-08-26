@@ -17,36 +17,45 @@ export const Cart = () => {
     <>
       <ScrollView style={styles.base}>
         <View style={styles.cartFoodsContainer}>
-          {cartFoods.map(({ food, count }, i) => (
-            <View key={i} style={styles.cartFood}>
-              <View style={styles.cartFoodInfo}>
-                <View style={styles.cartFoodCount}>
-                  <Text style={styles.cartFoodCountText}>{count}</Text>
+          {cartFoods.length ? (
+            <>
+              {cartFoods.map(({ food, count }, i) => (
+                <View key={i} style={styles.cartFood}>
+                  <View style={styles.cartFoodInfo}>
+                    <View style={styles.cartFoodCount}>
+                      <Text style={styles.cartFoodCountText}>{count}</Text>
+                    </View>
+                    <Text style={styles.cartFoodNameText} numberOfLines={1}>
+                      {food.name}
+                    </Text>
+                  </View>
+                  <Text style={styles.cartFoodPriceText}>${food.price}</Text>
                 </View>
-                <Text style={styles.cartFoodNameText} numberOfLines={1}>
-                  {food.name}
-                </Text>
+              ))}
+              <View style={styles.cartFood}>
+                <Text style={styles.cartFoodNameText}>Total</Text>
+                <Text style={styles.cartFoodPriceText}>${totalPrice}</Text>
               </View>
-              <Text style={styles.cartFoodPriceText}>${food.price}</Text>
+            </>
+          ) : (
+            <View style={styles.emptyCartContainer}>
+              <Text style={styles.emptyCartText}>Empty Cart</Text>
+              <Text style={styles.emptyCartTextSub}>
+                Your cart is currently empty. The food items you add to your cart will show here.
+              </Text>
             </View>
-          ))}
-          <View style={styles.cartFood}>
-            <Text style={styles.cartFoodNameText}>Total</Text>
-            <Text style={styles.cartFoodPriceText}>${totalPrice}</Text>
-          </View>
+          )}
         </View>
       </ScrollView>
-      <TouchableOpacity
-        style={styles.placeOrderButton}
-        disabled={!cartFoods.length || loading}
-        onPress={handlePressPlaceOrder}
-      >
-        {!loading ? (
-          <Text style={styles.placeOrderButtonText}>PLACE ORDER</Text>
-        ) : (
-          <ActivityIndicator color="#ffffff" />
-        )}
-      </TouchableOpacity>
+      {cartFoods.length ? (
+        <TouchableOpacity style={styles.placeOrderButton} disabled={loading} onPress={handlePressPlaceOrder}>
+          {!loading ? (
+            <Text style={styles.placeOrderButtonText}>PLACE ORDER</Text>
+          ) : (
+            <ActivityIndicator color="#ffffff" />
+          )}
+        </TouchableOpacity>
+      ) : null}
     </>
   );
 };

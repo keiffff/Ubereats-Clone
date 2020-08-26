@@ -14,6 +14,7 @@ import { useCurrentUser } from 'providers/CurrentUser';
 import { useCurrentCart } from 'providers/CurrentCart';
 import { routes } from 'constants/routes';
 import { useErrorFeedback } from 'hooks/useErrorFeedback';
+import { sleep } from 'helpers/sleep';
 
 type NavigationProp = {
   navigation: StackNavigationProp<StackParamList, 'CART'>;
@@ -21,6 +22,7 @@ type NavigationProp = {
 };
 
 const MAX_COUNT_TO_ADD_TO_CART = 99;
+const WAITING_FOR_NEW_CART_ITEM_SUBSCRIBED_MSEC = 500;
 
 export const Food = () => {
   const { navigate } = useNavigation<NavigationProp['navigation']>();
@@ -61,6 +63,7 @@ export const Food = () => {
     } catch {
       Alert.alert('Error', 'failed to add to cart');
     }
+    await sleep(WAITING_FOR_NEW_CART_ITEM_SUBSCRIBED_MSEC);
     navigate(routes.cart);
   }, [data?.foods_by_pk, count, createCart, userId, cartUuid, createCartFood, navigate]);
 

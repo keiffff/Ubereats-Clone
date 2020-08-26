@@ -40,6 +40,19 @@ export const styles = StyleSheet.create({
   cartFoodPriceText: {
     fontSize: 16,
   },
+  emptyCartContainer: {
+    marginTop: 48,
+    paddingHorizontal: 8,
+  },
+  emptyCartText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 32,
+    marginBottom: 16,
+  },
+  emptyCartTextSub: {
+    textAlign: 'center',
+  },
   placeOrderButton: {
     marginTop: 'auto',
     backgroundColor: '#5ea33a',
