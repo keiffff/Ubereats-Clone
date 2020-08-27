@@ -1,0 +1,9 @@
+query getOrderFoodsByOrderUuid($orderUuid: uuid!) {
+  order_foods(where: { order_uuid: { _eq: $orderUuid } }) {
+    count
+    food {
+      name
+      price
+    }
+  }
+}

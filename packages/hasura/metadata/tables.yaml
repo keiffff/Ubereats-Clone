@@ -210,6 +210,7 @@
       columns:
       - count
       - food_uuid
+      - order_uuid
       - uuid
       filter: {}
 - table:
