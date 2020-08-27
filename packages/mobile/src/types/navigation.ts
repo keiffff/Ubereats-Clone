@@ -7,5 +7,6 @@ export type StackParamList = {
   [routes.search]: undefined;
   [routes.food]: { foodUuid: string; foodName: string };
   [routes.cart]: undefined;
+  [routes.order]: { orderUuid: string };
   [routes.logout]: undefined;
 };

@@ -7,12 +7,13 @@ import { ShoppingCartButton } from '../../Header/ShoppingCartButton';
 import { Search } from 'screens/Search';
 import { Food } from 'screens/Food';
 import { Cart } from 'screens/Cart';
+import { Order } from 'screens/Order';
 import { routes } from 'constants/routes';
 import { SearchFoodsByTextDocument } from './index.graphql';
 import { StackParamList } from 'types/navigation';
 import { useErrorFeedback } from 'hooks/useErrorFeedback';
 
-const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD' | 'CART'>>();
+const Stack = createStackNavigator<Pick<StackParamList, 'SEARCH' | 'FOOD' | 'CART' | 'ORDER'>>();
 
 export const SearchNavigator = () => {
   const [searchText, setSearchText] = useState('');
@@ -60,6 +61,16 @@ export const SearchNavigator = () => {
         component={Cart}
         options={{
           title: 'Your Cart',
+          headerTitleAlign: 'center',
+          headerBackTitle: 'Back',
+          headerTintColor: '#000000',
+        }}
+      />
+      <Stack.Screen
+        name={routes.order}
+        component={Order}
+        options={{
+          title: 'Your Order',
           headerTitleAlign: 'center',
           headerBackTitle: 'Back',
           headerTintColor: '#000000',

@@ -6,10 +6,11 @@ import { Menu } from 'screens/Menu';
 import { Category } from 'screens/Category';
 import { Food } from 'screens/Food';
 import { Cart } from 'screens/Cart';
+import { Order } from 'screens/Order';
 import { routes } from 'constants/routes';
 import { StackParamList } from 'types/navigation';
 
-const Stack = createStackNavigator<Pick<StackParamList, 'MENU' | 'CATEGORY' | 'FOOD' | 'CART'>>();
+const Stack = createStackNavigator<Pick<StackParamList, 'MENU' | 'CATEGORY' | 'FOOD' | 'CART' | 'ORDER'>>();
 
 export const MenuNavigator = () => (
   <Stack.Navigator>
@@ -47,6 +48,16 @@ export const MenuNavigator = () => (
       component={Cart}
       options={{
         title: 'Your Cart',
+        headerTitleAlign: 'center',
+        headerBackTitle: 'Back',
+        headerTintColor: '#000000',
+      }}
+    />
+    <Stack.Screen
+      name={routes.order}
+      component={Order}
+      options={{
+        title: 'Your Order',
         headerTitleAlign: 'center',
         headerBackTitle: 'Back',
         headerTintColor: '#000000',

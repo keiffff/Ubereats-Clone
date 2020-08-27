@@ -1,20 +1,36 @@
 import React, { useMemo, useCallback } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useMutation } from '@apollo/client';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { OrderPaymentDocument } from './index.graphql';
 import { styles } from './styles';
 import { useCurrentCart } from 'providers/CurrentCart';
 import { PlacingOrderModal } from 'components/PlacingOrderModal';
 import { useCurrentUser } from 'providers/CurrentUser';
+import { StackParamList } from 'types/navigation';
+import { routes } from 'constants/routes';
+import { useErrorFeedback } from 'hooks/useErrorFeedback';
+
+type NavigationProp = {
+  navigation: StackNavigationProp<StackParamList, 'ORDER'>;
+};
 
 export const Cart = () => {
   const { firstName, lastName } = useCurrentUser();
   const { cartFoods } = useCurrentCart();
-  const [orderPayment, { loading }] = useMutation(OrderPaymentDocument);
+  const { navigate } = useNavigation<NavigationProp['navigation']>();
+  const [orderPayment, { loading, error }] = useMutation(OrderPaymentDocument);
   const totalPrice = useMemo(() => cartFoods.reduce((acc, { food, count }) => acc + food.price * count, 0), [
     cartFoods,
   ]);
-  const handlePressPlaceOrder = useCallback(() => orderPayment(), [orderPayment]);
+  const handlePressPlaceOrder = useCallback(async () => {
+    const { data } = await orderPayment();
+    if (!data?.orderPayment.orderUuid) return;
+    navigate(routes.order, { orderUuid: data.orderPayment.orderUuid });
+  }, [orderPayment, navigate]);
+
+  useErrorFeedback({ message: 'failed to order', enabled: !!error });
 
   return (
     <>

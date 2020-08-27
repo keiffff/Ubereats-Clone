@@ -5,5 +5,6 @@ export const routes = {
   search: 'SEARCH',
   food: 'FOOD',
   cart: 'CART',
+  order: 'ORDER',
   logout: 'LOGOUT',
 } as const;
