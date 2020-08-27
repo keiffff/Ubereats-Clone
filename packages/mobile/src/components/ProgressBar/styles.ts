@@ -8,4 +8,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#eaeaea',
     borderRadius: 5,
   },
+  inner: {
+    borderRadius: 5,
+    backgroundColor: '#5ea33a',
+  },
 });
