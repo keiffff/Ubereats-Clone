@@ -23,6 +23,9 @@ export const styles = StyleSheet.create({
     color: '#a8a8a8',
     fontWeight: 'bold',
   },
+  progressBarContainer: {
+    marginBottom: 16,
+  },
   orderStatusText: {
     fontSize: 16,
     fontWeight: 'bold',

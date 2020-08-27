@@ -6,11 +6,6 @@ export const styles = StyleSheet.create({
     height: 10,
     width: '100%',
     backgroundColor: '#eaeaea',
-    borderColor: '#000',
     borderRadius: 5,
-  },
-  inner: {
-    borderRadius: 5,
-    backgroundColor: '#5ea33a',
   },
 });

@@ -4,12 +4,20 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import { useQuery, useSubscription } from '@apollo/client';
 import { format, addMinutes } from 'date-fns';
 import { StackParamList } from 'types/navigation';
+import { OrderStatusEnum } from 'types/graphql';
 import { GetOrderByUuidDocument, SubscribeOrderStatusByUuidDocument } from './index.graphql';
 import { styles } from './styles';
 import { LoadingView } from 'components/LoadingView';
+import { ProgressBar } from 'components/ProgressBar';
 
 type NavigationProp = {
   route: RouteProp<StackParamList, 'ORDER'>;
+};
+
+const orderStatusProgress: Record<OrderStatusEnum, number> = {
+  canceled: 0,
+  waiting: 33,
+  completed: 100,
 };
 
 export const Order = () => {
@@ -39,7 +47,10 @@ export const Order = () => {
     [getOrderByUuidData?.orders_by_pk?.created_at],
   );
 
-  return getOrderByUuidLoading || subscribeOrderStatusLoading || !getOrderByUuidData?.orders_by_pk?.order_foods ? (
+  return getOrderByUuidLoading ||
+    subscribeOrderStatusLoading ||
+    !getOrderByUuidData?.orders_by_pk?.order_foods ||
+    !subscribeOrderStatusData?.orders_by_pk?.status ? (
     <LoadingView />
   ) : (
     <ScrollView style={styles.base}>
@@ -47,6 +58,9 @@ export const Order = () => {
         <View style={styles.estimatedArrivalTimeContainer}>
           <Text style={styles.estimatedArrivalTime}>{initialEstimatedArrivalTime}</Text>
           <Text style={styles.estimatedArrivalText}>Estimated Arrival</Text>
+        </View>
+        <View style={styles.progressBarContainer}>
+          <ProgressBar progress={orderStatusProgress[subscribeOrderStatusData.orders_by_pk.status]} />
         </View>
         <Text style={styles.orderStatusText}>Preparing your order...</Text>
       </View>
