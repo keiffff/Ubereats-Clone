@@ -9,6 +9,20 @@ export const styles = StyleSheet.create({
   orderStatusContainer: {
     paddingHorizontal: 16,
   },
+  estimatedArrivalTimeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  estimatedArrivalTime: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  estimatedArrivalText: {
+    color: '#a8a8a8',
+    fontWeight: 'bold',
+  },
   orderStatusText: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -42,6 +56,9 @@ export const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
     marginRight: 8,
+  },
+  orderedFoodName: {
+    flex: 1,
   },
   totalPriceContainer: {
     flexDirection: 'row',
