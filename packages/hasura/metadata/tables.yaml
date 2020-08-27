@@ -232,6 +232,18 @@
         table:
           schema: public
           name: order_foods
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - status
+      - updated_at
+      - user_id
+      - uuid
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
   event_triggers:
   - name: order_canceled
     definition:

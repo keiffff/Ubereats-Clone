@@ -1,9 +1,18 @@
-query getOrderFoodsByOrderUuid($orderUuid: uuid!) {
-  order_foods(where: { order_uuid: { _eq: $orderUuid } }) {
-    count
-    food {
-      name
-      price
+query getOrderByUuid($orderUuid: uuid!) {
+  orders_by_pk(uuid: $orderUuid) {
+    created_at
+    order_foods {
+      count
+      food {
+        name
+        price
+      }
     }
+  }
+}
+
+subscription subscribeOrderStatusByUuid($orderUuid: uuid!) {
+  orders_by_pk(uuid: $orderUuid) {
+    status
   }
 }
