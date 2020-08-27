@@ -14,10 +14,13 @@ type NavigationProp = {
   route: RouteProp<StackParamList, 'ORDER'>;
 };
 
+const INITIAL_ESTIMATED_DELIVER_MINUTES = 30;
+
 const orderStatusProgress: Record<OrderStatusEnum, number> = {
   canceled: 0,
   waiting: 33,
-  completed: 100,
+  approved: 67,
+  delivered: 100,
 };
 
 export const Order = () => {
@@ -42,7 +45,10 @@ export const Order = () => {
   const initialEstimatedArrivalTime = useMemo(
     () =>
       getOrderByUuidData?.orders_by_pk?.created_at
-        ? format(addMinutes(new Date(getOrderByUuidData?.orders_by_pk?.created_at), 30), 'HH:mm')
+        ? format(
+            addMinutes(new Date(getOrderByUuidData?.orders_by_pk?.created_at), INITIAL_ESTIMATED_DELIVER_MINUTES),
+            'HH:mm',
+          )
         : null,
     [getOrderByUuidData?.orders_by_pk?.created_at],
   );
