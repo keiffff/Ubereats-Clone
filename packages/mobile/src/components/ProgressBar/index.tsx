@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Animated, StyleSheet } from 'react-native';
-import { styles } from 'components/LoadingView/styles';
+import { styles } from './styles';
 
 type Props = {
   progress: number;
