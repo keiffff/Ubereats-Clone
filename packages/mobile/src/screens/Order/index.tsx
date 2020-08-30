@@ -36,7 +36,7 @@ export const Order = () => {
       },
       onSubscriptionData: (data) => {
         if (data.subscriptionData.data?.orders_by_pk?.status !== 'canceled') return;
-        Alert.alert(`your order was canceled by restaurant\nplease check the payment was refunded`);
+        Alert.alert(`your order was canceled by restaurant\n\nplease check if the payment was refunded`);
       },
     },
   );
