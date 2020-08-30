@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ScrollView, Text, View, Image } from 'react-native';
+import { ScrollView, Text, View, Image, Alert } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useQuery, useSubscription } from '@apollo/client';
 import { format, addMinutes } from 'date-fns';
@@ -33,6 +33,10 @@ export const Order = () => {
     {
       variables: {
         orderUuid: params.orderUuid,
+      },
+      onSubscriptionData: (data) => {
+        if (data.subscriptionData.data?.orders_by_pk?.status !== 'canceled') return;
+        Alert.alert(`your order was canceled by restaurant\nplease check the payment was refunded`);
       },
     },
   );
