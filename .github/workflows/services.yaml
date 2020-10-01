@@ -1,0 +1,6 @@
+name: services
+on:
+  push:
+    paths:
+      - 'packages/services/**'
+      - '.github/workflows/services.yaml'
