@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: curl -L https://github.com/hasura/graphql-engine/raw/master/cli/get.sh | bash
-      - run: hasura -v
+      - run: hasura version
