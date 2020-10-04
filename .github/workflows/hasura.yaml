@@ -5,9 +5,22 @@ on:
       - 'packages/hasura/**'
       - '.github/workflows/hasura.yaml'
 jobs:
+  setup-node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: yarn install -W
   install-hasura-cli:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - run: curl -L https://github.com/hasura/graphql-engine/raw/master/cli/get.sh | bash
-      - run: hasura version
+  apply-migration-and-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - run: yarn hasura migrate apply --endpoint=$HASURA_GRAPHQL_ENDPOINT --admin-secret=$HASURA_GRAPHQL_ADMIN_SECRET
+      - run: yarn hasura metadata apply --endpoint=$HASURA_GRAPHQL_ENDPOINT --admin-secret=$HASURA_GRAPHQL_ADMIN_SECRET
+env:
+  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
