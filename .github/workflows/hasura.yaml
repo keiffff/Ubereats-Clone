@@ -28,6 +28,6 @@ jobs:
 
       - name: Apply metadata
         run: yarn hasura metadata apply --endpoint=$HASURA_GRAPHQL_ENDPOINT --admin-secret=$HASURA_GRAPHQL_ADMIN_SECRET
-  env:
-    HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
-    HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+    env:
+      HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+      HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
