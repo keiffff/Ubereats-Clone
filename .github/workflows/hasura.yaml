@@ -1,6 +1,8 @@
 name: hasura
 on:
   push:
+    branches:
+      - master
     paths:
       - 'packages/hasura/**'
       - '.github/workflows/hasura.yaml'
@@ -19,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: yarn install -W
 
-      - name: Apply hasura migrations
+      - name: Apply migrations
         uses: tibotiber/hasura-action@master
         with:
           args: migrate apply
