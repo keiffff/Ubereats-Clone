@@ -1,0 +1,36 @@
+name: hasura
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'packages/hasura/**'
+      - '.github/workflows/hasura.yaml'
+jobs:
+  apply-migration-and-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install dependencies
+        run: yarn install -W
+
+      - name: Apply migrations
+        uses: tibotiber/hasura-action@master
+        with:
+          args: migrate apply
+
+      - name: Apply metadata
+        uses: tibotiber/hasura-action@master
+        with:
+          args: metadata apply
+env:
+  HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
+  HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+  HASURA_WORKDIR: packages/hasura
