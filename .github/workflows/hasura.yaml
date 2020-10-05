@@ -1,8 +1,6 @@
 name: hasura
 on:
   push:
-    branches:
-      - master
     paths:
       - 'packages/hasura/**'
       - '.github/workflows/hasura.yaml'
@@ -18,9 +16,6 @@ jobs:
         with:
           node-version: 12.x
 
-      - name: Install dependencies
-        run: yarn install -W
-
       - name: Apply migrations
         uses: tibotiber/hasura-action@master
         with:
@@ -32,5 +27,5 @@ jobs:
           args: metadata apply
 env:
   HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
-  HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+  HASURA_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
   HASURA_WORKDIR: packages/hasura

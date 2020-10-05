@@ -5,11 +5,29 @@ on:
       - 'packages/services/**'
       - '.github/workflows/services.yaml'
 jobs:
-  setup-node:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: yarn install
+
+      - name: Install dependencies
+        run: cd packages/services && yarn install
+
+      - name: Install vercel CLI
+        run: yarn global add vercel
+
+      - name: Codegen from graphql schema
+        run: yarn codegen
+
+      - name: Build and deploy
+        run: yarn deploy
+env:
+  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
+  STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
