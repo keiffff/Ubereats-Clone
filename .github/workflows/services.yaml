@@ -23,10 +23,10 @@ jobs:
         run: yarn global add vercel
 
       - name: Codegen from graphql schema
-        run: yarn codegen
+        run: cd packages/services && yarn codegen
 
       - name: Build and deploy
-        run: yarn deploy
+        run: cd packages/services && yarn deploy
 env:
   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
