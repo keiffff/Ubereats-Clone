@@ -26,9 +26,13 @@ jobs:
         run: yarn services codegen
 
       - name: Build and deploy
-        run: yarn services deploy --token $VERCEL_TOKEN
+        uses: amondnet/vercel-action@v19
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          working-directory: packages/services
 env:
   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
   STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
