@@ -5,13 +5,16 @@ on:
       - 'packages/mobile/**'
       - '.github/workflows/mobile.yaml'
 jobs:
-  install-expo-cli:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - uses: expo/expo-github-action@v5
-      - run: expo --version
-      - run: yarn install
+
+      - name: Install dependencies
+        run: yarn mobile install

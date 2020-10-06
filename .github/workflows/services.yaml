@@ -17,17 +17,18 @@ jobs:
           node-version: 12.x
 
       - name: Install dependencies
-        run: cd packages/services && yarn install
+        run: yarn services install
 
       - name: Install vercel CLI
         run: yarn global add vercel
 
       - name: Codegen from graphql schema
-        run: cd packages/services && yarn codegen
+        run: yarn services codegen
 
       - name: Build and deploy
-        run: cd packages/services && yarn deploy
+        run: yarn services deploy --token $VERCEL_TOKEN
 env:
   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
   STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
