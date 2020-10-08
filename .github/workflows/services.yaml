@@ -1,9 +1,8 @@
 name: services
 on:
   push:
-    paths:
-      - 'packages/services/**'
-      - '.github/workflows/services.yaml'
+    branches:
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -19,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: yarn services install
 
-      - name: Install vercel CLI
+      - name: Install vercel cli
         run: yarn global add vercel
 
       - name: Codegen from graphql schema

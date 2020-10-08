@@ -16,16 +16,11 @@ jobs:
         with:
           node-version: 12.x
 
+      - name: Install hasura cli
+        run: curl -L https://github.com/hasura/graphql-engine/raw/stable/cli/get.sh | bash
+
       - name: Apply migrations
-        uses: tibotiber/hasura-action@master
-        with:
-          args: migrate apply
+        run: yarn hasura migrate apply --endpoint ${{ secrets.HASURA_ENDPOINT }} --admin-secret ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
 
       - name: Apply metadata
-        uses: tibotiber/hasura-action@master
-        with:
-          args: metadata apply
-env:
-  HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
-  HASURA_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
-  HASURA_WORKDIR: packages/hasura
+        run: yarn hasura migrate apply --endpoint ${{ secrets.HASURA_ENDPOINT }} --admin-secret ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
