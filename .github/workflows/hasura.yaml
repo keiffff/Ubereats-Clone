@@ -1,9 +1,8 @@
 name: hasura
 on:
   push:
-    paths:
-      - 'packages/hasura/**'
-      - '.github/workflows/hasura.yaml'
+    branches:
+      - master
 jobs:
   apply-migration-and-metadata:
     runs-on: ubuntu-latest

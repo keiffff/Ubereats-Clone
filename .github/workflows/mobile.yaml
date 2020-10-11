@@ -1,9 +1,8 @@
 name: mobile
 on:
   push:
-    paths:
-      - 'packages/mobile/**'
-      - '.github/workflows/mobile.yaml'
+    branches:
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
