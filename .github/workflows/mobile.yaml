@@ -18,3 +18,21 @@ jobs:
 
       - name: Install dependencies
         run: yarn mobile install
+
+      - name: Install expo cli
+        run: yarn global add expo-cli
+
+      - name: Login to expo via cli
+        run: expo login --username ${{ secrets.EXPO_USER_NAME }} --password ${{ secrets.EXPO_PASSWORD }}
+
+      - name: Codegen from graphql schema
+        run: yarn mobile codegen
+
+      - name: Build and deploy
+        run: expo publish
+env:
+  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
+  AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
+  AUTH_CLIENT_ID: ${{ secrets.AUTH_CLIENT_ID }}
+  AUTH_AUDIENCE: ${{ secrets.AUTH_AUDIENCE }}
