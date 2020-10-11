@@ -12,9 +12,8 @@ module.exports = function (api) {
         },
       ],
       [
-        'dotenv-import',
+        'inline-dotenv',
         {
-          moduleName: '@env',
           path: '.env',
         },
       ],
