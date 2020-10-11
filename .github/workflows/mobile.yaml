@@ -20,7 +20,7 @@ jobs:
         run: yarn mobile install
 
       - name: Install expo cli
-        run: yarn global add expo-cli
+        run: npm install --global expo-cli
 
       - name: Login to expo via cli
         run: expo login --username ${{ secrets.EXPO_USER_NAME }} --password ${{ secrets.EXPO_PASSWORD }}
