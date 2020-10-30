@@ -19,11 +19,17 @@ jobs:
       - name: Install vercel cli
         run: yarn global add vercel
 
+      - name: Install hasura cli
+        run: yarn global add hasura-cli
+
       - name: Codegen from graphql schema
         run: yarn services codegen
 
       - name: Build and deploy
         run: yarn services deploy --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Reload hasura metadata
+        run: yarn hasura metadata reload --endpoint ${{ secrets.HASURA_ENDPOINT }} --admin-secret ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
 env:
   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}

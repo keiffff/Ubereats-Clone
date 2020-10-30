@@ -14,7 +14,7 @@ jobs:
           node-version: 12.x
 
       - name: Install hasura cli
-        run: curl -L https://github.com/hasura/graphql-engine/raw/stable/cli/get.sh | bash
+        run: yarn global add hasura-cli
 
       - name: Apply migrations
         run: yarn hasura migrate apply --endpoint ${{ secrets.HASURA_ENDPOINT }} --admin-secret ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
