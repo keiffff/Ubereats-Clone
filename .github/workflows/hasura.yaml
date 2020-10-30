@@ -1,5 +1,6 @@
 name: deploy hasura
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 jobs:
   apply-migration-and-metadata:
     runs-on: ubuntu-latest

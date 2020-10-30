@@ -1,5 +1,6 @@
 name: deploy services
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
