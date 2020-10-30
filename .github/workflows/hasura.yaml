@@ -1,8 +1,5 @@
 name: hasura
-on:
-  push:
-    branches:
-      - master
+on: deploy hasura
 jobs:
   apply-migration-and-metadata:
     runs-on: ubuntu-latest

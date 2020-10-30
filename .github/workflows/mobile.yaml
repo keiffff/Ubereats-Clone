@@ -1,8 +1,5 @@
-name: mobile
-on:
-  push:
-    branches:
-      - master
+name: deploy mobile
+on: workflow_dispatch
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
